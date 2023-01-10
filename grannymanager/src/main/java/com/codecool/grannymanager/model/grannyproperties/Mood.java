@@ -1,6 +1,6 @@
 package com.codecool.grannymanager.model.grannyproperties;
 
-public enum Feeling implements Stat {
+public enum Mood implements Stat {
 
     HAPPY,BORED,GRUMPY;
 
