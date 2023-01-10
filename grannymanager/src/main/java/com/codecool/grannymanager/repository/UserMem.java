@@ -1,7 +1,6 @@
 package com.codecool.grannymanager.repository;
 
 import com.codecool.grannymanager.model.User;
-import com.codecool.grannymanager.model.UserLogin;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -20,19 +19,16 @@ public class UserMem {
         users.add(user);
     }
 
+    public void deleteUser(User user) {
+        users.remove(user);
+    }
+
     public User getUserById(int id) {
         return users.stream().filter(user -> user.isId(id)).findFirst().orElseThrow();
     }
 
-
-    //throws NoSuchElement if email is incorrect
-    public int getUserId(UserLogin userLogin) {
-        User thisUser = users.stream().filter(user -> user.isEmail(user.getEmail())).findFirst().orElseThrow();
-        if (thisUser.getPassword().equals(userLogin.getPassword())) {
-            return thisUser.getId();
-        }
-        //Password is incorrect
-        return -1;
+    public int getUserId(String email) {
+        return users.stream().filter(user -> user.isEmail(user.getEmail())).findFirst().orElseThrow().getId();
     }
 
     public void updateEmail(User user, String email) {
