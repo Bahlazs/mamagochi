@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GrannyController {
     private final GrannyService grannyService;
+
     @Autowired
     public GrannyController(GrannyService grannyService) {
         this.grannyService = grannyService;
     }
+
     @GetMapping("/visit-granny{id}")
     public ResponseEntity<Void> visitGranny(@PathVariable int id) {
         grannyService.visitGranny(id);
