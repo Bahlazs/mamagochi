@@ -1,9 +1,12 @@
 package com.codecool.grannymanager.model.grannyproperties;
 
-public interface StatChanger {
+public interface Stat {
 
-    public Enum incrementStat();
+    Stat incrementStat();
 
-    public Enum decrementStat();
+    Stat decrementStat();
+
+    int MAX = 0;
+    int MIN = 2;
 
 }
