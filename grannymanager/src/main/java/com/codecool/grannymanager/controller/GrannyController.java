@@ -19,4 +19,22 @@ public class GrannyController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/feed-pie{id}")
+    public ResponseEntity<Void> feedPie(@PathVariable int id) {
+        grannyService.feedPie(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/play-mahjong{id}")
+    public ResponseEntity<Void> playMahjong(@PathVariable int id) {
+        grannyService.playMahjong(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/clean-house{id}")
+    public ResponseEntity<Void> cleanHouse(@PathVariable int id) {
+        grannyService.cleanHouse(id);
+        return ResponseEntity.ok().build();
+    }
+
 }
