@@ -8,17 +8,30 @@ import org.springframework.stereotype.Service;
 @Service
 public class GrannyService {
     private final GrannyRepository grannyRepository;
+
     @Autowired
     public GrannyService(GrannyRepository grannyRepository) {
         this.grannyRepository = grannyRepository;
     }
 
-    public Granny findGrannyById(int id) {
-        return grannyRepository.findGrannyById(id);
+    public void visitGranny(int id) {
+        Granny granny = grannyRepository.findGrannyById(id);
+        granny.checkOnGranny();
     }
 
-    public void increaseStat(Stat stat) {
-        grannyRepository.updateStat(stat);
+    public void feedPie(int id) {
+        Granny granny = grannyRepository.findGrannyById(id);
+        granny.increaseHealth();
+    }
+
+    public void playMahjong(int id) {
+        Granny granny = grannyRepository.findGrannyById(id);
+        granny.increaseFeeling();
+    }
+
+    public void cleanHouse(int id) {
+        Granny granny = grannyRepository.findGrannyById(id);
+        granny.increaseEnvironment();
     }
 
 }
