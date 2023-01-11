@@ -6,7 +6,4 @@ public interface Stat {
 
     Stat decrementStat();
 
-    int MAX = 0;
-    int MIN = 2;
-
 }

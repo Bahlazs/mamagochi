@@ -31,17 +31,5 @@ public class GrannyRepository {
         grannies.remove(granny);
     }
 
-    public void updateGranny(Granny updatedGranny){
-        Granny originalGranny = findGrannyById(updatedGranny.getUserId());
-        int indexOfOriginalGranny = findIndexOfGranny(originalGranny);
-        updateGrannyOnIndex(indexOfOriginalGranny, updatedGranny);
-    }
 
-    private int findIndexOfGranny(Granny granny){
-        return grannies.indexOf(granny);
-    }
-
-    private void updateGrannyOnIndex(int index, Granny granny){
-        grannies.set(index, granny);
-    }
 }
