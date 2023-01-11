@@ -25,10 +25,15 @@ public class GrannyService {
         this.grannyRepository = grannyRepository;
     }
 
-    public void visitGranny(int id) {
+    public void createGranny(int userId, String name) {
+        grannyRepository.createGranny(userId, name);
+    }
+
+    public Granny visitGranny(int id) {
         Granny granny = grannyRepository.findGrannyById(id);
         checkOnGranny(granny);
         granny.setLastVisit(LocalDateTime.now());
+        return granny;
     }
 
     private void checkOnGranny(Granny granny) {
@@ -77,22 +82,25 @@ public class GrannyService {
         return mood == Mood.GRUMPY && health == Health.SICK && environment == Environment.IN_RUINS;
     }
 
-    public void feedPie(int id) {
+    public Granny feedPie(int id) {
         Granny granny = grannyRepository.findGrannyById(id);
         Stat health = granny.getHealth();
         health.incrementStat();
+        return granny;
     }
 
-    public void playMahjong(int id) {
+    public Granny playMahjong(int id) {
         Granny granny = grannyRepository.findGrannyById(id);
         Stat mood = granny.getMood();
         mood.incrementStat();
+        return granny;
     }
 
-    public void cleanHouse(int id) {
+    public Granny cleanHouse(int id) {
         Granny granny = grannyRepository.findGrannyById(id);
         Stat environment = granny.getEnvironment();
         environment.incrementStat();
+        return granny;
     }
 
 }
