@@ -21,13 +21,15 @@ public class GrannyRepository {
     }
 
     public Granny findGrannyById(int id) {
-        Granny granny = null;
-        for (int i = 0; i < grannies.size(); i++) {
-            if (id == grannies.get(i).getId()) {
-                granny = grannies.get(i);
-            }
-        }
-        return granny;
+        return grannies.stream()
+                .filter(g -> g.getId() == id)
+                .findFirst()
+                .orElse(null);
+    }
+
+    public void deleteGranny(int id) {
+        Granny granny = findGrannyById(id);
+        grannies.remove(granny);
     }
 
 
