@@ -4,8 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
+//@Setter
+//@Entitty
 public class User {
 
+//    @Id
     private final int id;
     private final String name;
     private String password;
@@ -18,6 +21,8 @@ public class User {
         this.email = email;
     }
 
+
+//    remove all of this
     public void setEmail(String email) {
         this.email = email;
     }
