@@ -11,10 +11,6 @@ import java.util.List;
 
 public class Granny {
 
-    private final int MOODINDEX = 1;
-    private final int HEALTINDEX = 2;
-    private final int ENVIROMENTINDEX = 0;
-
     private int userId;
 
     private String name;
@@ -23,7 +19,10 @@ public class Granny {
 
     private LocalDateTime lastVisit;
 
-    private List<Stat> stats;
+
+    private Stat health;
+    private Stat mood;
+    private Stat environment;
 
     private boolean retired = false;
 
@@ -33,14 +32,13 @@ public class Granny {
         this.name = name;
         this.age = 60;
         this.lastVisit = LocalDateTime.now();
-        this.stats = new ArrayList<>();
         initializeStats();
     }
 
     private void initializeStats() {
-        this.stats.add(Environment.TIDY);
-        this.stats.add(Mood.HAPPY);
-        this.stats.add(Health.HEALTHY);
+        this.health = Health.HEALTHY;
+        this.mood = Mood.HAPPY;
+        this.environment = Environment.TIDY;
     }
 
     public int getUserId() {
@@ -76,20 +74,27 @@ public class Granny {
         return lastVisit;
     }
 
-    public List<Stat> getStats() {
-        return stats;
+    public Stat getHealth() {
+        return health;
     }
 
-    public Stat getHealth() {
-        return stats.get(HEALTINDEX);
+    public void setHealth(Stat health) {
+        this.health = health;
     }
 
     public Stat getMood() {
-        return stats.get(MOODINDEX);
+        return mood;
+    }
+
+    public void setMood(Stat mood) {
+        this.mood = mood;
     }
 
     public Stat getEnvironment() {
-        return stats.get(ENVIROMENTINDEX);
+        return environment;
     }
 
+    public void setEnvironment(Stat environment) {
+        this.environment = environment;
+    }
 }

@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Consumer;
 
 @Service
 public class GrannyService {
@@ -25,10 +26,16 @@ public class GrannyService {
         this.grannyRepository = grannyRepository;
     }
 
-    public void visitGranny(int id) {
+    public void createGranny(int userId, String name) {
+        grannyRepository.createGranny(userId, name);
+    }
+
+    public Granny visitGranny(int id) {
         Granny granny = grannyRepository.findGrannyById(id);
         checkOnGranny(granny);
         granny.setLastVisit(LocalDateTime.now());
+        grannyRepository.updateGranny(granny);
+        return granny;
     }
 
     private void checkOnGranny(Granny granny) {
@@ -56,12 +63,27 @@ public class GrannyService {
     }
 
     private void decrementRandomStat(Granny granny) {
-        Stat randomStat = getRandomStatFromGranny(granny);
-        randomStat.decrementStat();
+        Consumer<Granny> healthDecrease = this::decrementHealthStat;
+        Consumer<Granny> moodDecrease = this::decrementMoodStat;
+        Consumer<Granny> environmentDecrease = this::decrementEnvironmentStat;
+        Consumer<Granny>[] events = new Consumer[]{healthDecrease, moodDecrease, environmentDecrease};
+        Consumer<Granny> event = events[random.nextInt(events.length)];
+        event.accept(granny);
     }
-    private Stat getRandomStatFromGranny(Granny granny){
-        List<Stat> grannyStats = granny.getStats();
-        return grannyStats.get(random.nextInt(3));
+    private void decrementHealthStat(Granny granny){
+        Stat health = granny.getHealth();
+        Stat decrementedStat = health.decrementStat();
+        granny.setHealth(decrementedStat);
+    }
+    private void decrementMoodStat(Granny granny){
+        Stat mood = granny.getMood();
+        Stat decrementedStat = mood.decrementStat();
+        granny.setMood(decrementedStat);
+    }
+    private void decrementEnvironmentStat(Granny granny){
+        Stat environment = granny.getEnvironment();
+        Stat decrementedStat = environment.decrementStat();
+        granny.setEnvironment(decrementedStat);
     }
 
     private void shouldGrannyRetire(Granny granny) {
@@ -77,22 +99,40 @@ public class GrannyService {
         return mood == Mood.GRUMPY && health == Health.SICK && environment == Environment.IN_RUINS;
     }
 
-    public void feedPie(int id) {
+    public Granny feedPie(int id) {
         Granny granny = grannyRepository.findGrannyById(id);
         Stat health = granny.getHealth();
-        health.incrementStat();
+        Stat changedStat = health.incrementStat();
+        granny.setHealth(changedStat);
+        grannyRepository.updateGranny(granny);
+        return granny;
     }
 
-    public void playMahjong(int id) {
+    public Granny playMahjong(int id) {
         Granny granny = grannyRepository.findGrannyById(id);
         Stat mood = granny.getMood();
-        mood.incrementStat();
+        Stat changedStat = mood.incrementStat();
+        granny.setMood(changedStat);
+        grannyRepository.updateGranny(granny);
+        return granny;
     }
 
-    public void cleanHouse(int id) {
+    public Granny cleanHouse(int id) {
         Granny granny = grannyRepository.findGrannyById(id);
         Stat environment = granny.getEnvironment();
-        environment.incrementStat();
+        Stat changedStat = environment.incrementStat();
+        granny.setEnvironment(changedStat);
+        grannyRepository.updateGranny(granny);
+        return granny;
+    }
+
+    public void jumpOneDay(int id){
+        Granny granny = grannyRepository.findGrannyById(id);
+        LocalDateTime lastVisit = granny.getLastVisit();
+//        System.out.println(lastVisit);
+        granny.setLastVisit(lastVisit.minusDays(1));
+//        System.out.println(granny.getLastVisit());
+        grannyRepository.updateGranny(granny);
     }
 
 }
