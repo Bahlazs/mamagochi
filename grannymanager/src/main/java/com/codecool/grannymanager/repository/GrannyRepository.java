@@ -22,7 +22,7 @@ public class GrannyRepository {
 
     public Granny findGrannyById(int id) {
         return grannies.stream()
-                .filter(g -> g.getId() == id)
+                .filter(g -> g.getUserId() == id)
                 .findFirst()
                 .orElse(null);
     }
