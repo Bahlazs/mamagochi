@@ -1,7 +1,7 @@
 package com.codecool.grannymanager.model;
 
 
-import com.codecool.grannymanager.model.grannyproperties.Enviroment;
+import com.codecool.grannymanager.model.grannyproperties.Environment;
 import com.codecool.grannymanager.model.grannyproperties.Mood;
 import com.codecool.grannymanager.model.grannyproperties.Health;
 import com.codecool.grannymanager.model.grannyproperties.Stat;
@@ -39,7 +39,7 @@ public class Granny {
     }
 
     private void initializeStats(){
-        this.stats.add(Enviroment.TIDY);
+        this.stats.add(Environment.TIDY);
         this.stats.add(Mood.HAPPY);
         this.stats.add(Health.HEALTHY);
     }
@@ -81,14 +81,14 @@ public class Granny {
         return stats;
     }
 
-    public Stat getHealt(){
+    public Stat getHealth(){
         return stats.get(HEALTINDEX);
     }
     public Stat getMood(){
         return stats.get(MOODINDEX);
     }
 
-    public Stat getEnviroment(){
+    public Stat getEnvironment(){
         return stats.get(ENVIROMENTINDEX);
     }
 

@@ -1,6 +1,6 @@
 package com.codecool.grannymanager.model.grannyproperties;
 
-public enum Enviroment implements Stat {
+public enum Environment implements Stat {
 
     TIDY,MESSY,IN_RUINS;
 

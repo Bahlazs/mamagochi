@@ -1,12 +1,17 @@
 package com.codecool.grannymanager.service;
 
 import com.codecool.grannymanager.model.Granny;
+import com.codecool.grannymanager.model.grannyproperties.Environment;
+import com.codecool.grannymanager.model.grannyproperties.Health;
+import com.codecool.grannymanager.model.grannyproperties.Mood;
+import com.codecool.grannymanager.model.grannyproperties.Stat;
 import com.codecool.grannymanager.repository.GrannyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -50,19 +55,19 @@ public class GrannyService {
     public void feedPie(int id) {
         Granny granny = grannyRepository.findGrannyById(id);
         Stat health = granny.getHealth();
-        health.increaseStat();
+        health.incrementStat();
     }
 
     public void playMahjong(int id) {
         Granny granny = grannyRepository.findGrannyById(id);
         Stat mood = granny.getMood();
-        mood.increaseStat();
+        mood.incrementStat();
     }
 
     public void cleanHouse(int id) {
         Granny granny = grannyRepository.findGrannyById(id);
         Stat environment = granny.getEnvironment();
-        environment.increaseStat();
+        environment.incrementStat();
     }
 
 }
