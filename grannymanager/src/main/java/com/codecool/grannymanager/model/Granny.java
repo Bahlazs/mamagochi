@@ -1,5 +1,6 @@
 package com.codecool.grannymanager.model;
 
+
 import com.codecool.grannymanager.model.grannyproperties.Enviroment;
 import com.codecool.grannymanager.model.grannyproperties.Mood;
 import com.codecool.grannymanager.model.grannyproperties.Health;
@@ -90,7 +91,5 @@ public class Granny {
     public Stat getEnviroment(){
         return stats.get(ENVIROMENTINDEX);
     }
-
-
 
 }
