@@ -1,6 +1,7 @@
 package com.codecool.grannymanager.controller;
 
 import com.codecool.grannymanager.model.Granny;
+import com.codecool.grannymanager.model.grannyproperties.Stat;
 import com.codecool.grannymanager.model.requestmodel.GrannyCreateRequest;
 import com.codecool.grannymanager.model.requestmodel.GrannyGetRequest;
 import com.codecool.grannymanager.service.GrannyService;
@@ -33,9 +34,9 @@ public class GrannyController {
     }
 
     @GetMapping("/feed-pie")
-    public ResponseEntity<Granny> feedPie(@RequestBody GrannyGetRequest request) {
+    public ResponseEntity<Stat> feedPie(@RequestBody GrannyGetRequest request) {
         Granny granny = grannyService.feedPie(request.getUserId());
-        return ResponseEntity.ok().body(granny);
+        return ResponseEntity.ok().body(granny.getHealth());
     }
 
     @GetMapping("/play-mahjong")
@@ -48,6 +49,12 @@ public class GrannyController {
     public ResponseEntity<Granny> cleanHouse(@RequestBody GrannyGetRequest request) {
         Granny granny = grannyService.cleanHouse(request.getUserId());
         return ResponseEntity.ok().body(granny);
+    }
+
+    @GetMapping("/spend-one-day")
+    public ResponseEntity<String> spendOneDay(@RequestBody GrannyGetRequest request){
+        grannyService.jumpOneDay(request.getUserId());
+        return ResponseEntity.ok().body("One day spent! You should check on Granny");
     }
 
 }

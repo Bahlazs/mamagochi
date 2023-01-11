@@ -15,6 +15,10 @@ public class Granny {
     private final int HEALTINDEX = 2;
     private final int ENVIROMENTINDEX = 0;
 
+    public void setStats(List<Stat> stats) {
+        this.stats = stats;
+    }
+
     private int userId;
 
     private String name;

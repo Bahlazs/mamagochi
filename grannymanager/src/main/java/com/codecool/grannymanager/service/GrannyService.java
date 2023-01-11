@@ -33,6 +33,7 @@ public class GrannyService {
         Granny granny = grannyRepository.findGrannyById(id);
         checkOnGranny(granny);
         granny.setLastVisit(LocalDateTime.now());
+        grannyRepository.updateGranny(granny);
         return granny;
     }
 
@@ -86,6 +87,7 @@ public class GrannyService {
         Granny granny = grannyRepository.findGrannyById(id);
         Stat health = granny.getHealth();
         health.incrementStat();
+        grannyRepository.updateGranny(granny);
         return granny;
     }
 
@@ -93,6 +95,7 @@ public class GrannyService {
         Granny granny = grannyRepository.findGrannyById(id);
         Stat mood = granny.getMood();
         mood.incrementStat();
+        grannyRepository.updateGranny(granny);
         return granny;
     }
 
@@ -100,7 +103,17 @@ public class GrannyService {
         Granny granny = grannyRepository.findGrannyById(id);
         Stat environment = granny.getEnvironment();
         environment.incrementStat();
+        grannyRepository.updateGranny(granny);
         return granny;
+    }
+
+    public void jumpOneDay(int id){
+        Granny granny = grannyRepository.findGrannyById(id);
+        LocalDateTime lastVisit = granny.getLastVisit();
+//        System.out.println(lastVisit);
+        granny.setLastVisit(lastVisit.minusDays(1));
+//        System.out.println(granny.getLastVisit());
+        grannyRepository.updateGranny(granny);
     }
 
 }
