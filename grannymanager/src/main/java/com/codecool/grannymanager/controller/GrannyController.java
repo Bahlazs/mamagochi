@@ -1,5 +1,6 @@
 package com.codecool.grannymanager.controller;
 
+
 import com.codecool.grannymanager.model.Granny;
 import com.codecool.grannymanager.model.grannyproperties.Stat;
 import com.codecool.grannymanager.model.requestmodel.GrannyCreateRequest;
@@ -8,6 +9,14 @@ import com.codecool.grannymanager.service.GrannyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.codecool.grannymanager.service.GrannyService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/granny")
