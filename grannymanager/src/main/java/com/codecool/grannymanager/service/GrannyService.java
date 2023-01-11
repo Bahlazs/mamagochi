@@ -16,6 +16,8 @@ import java.util.Random;
 
 @Service
 public class GrannyService {
+
+    private final Random random = new Random();
     private final GrannyRepository grannyRepository;
 
     @Autowired
@@ -25,31 +27,54 @@ public class GrannyService {
 
     public void visitGranny(int id) {
         Granny granny = grannyRepository.findGrannyById(id);
-        LocalDateTime lastVisit = granny.getLastVisit();
-        int hoursSinceLastVisit = (int)ChronoUnit.HOURS.between(lastVisit, LocalDateTime.now());
-        int daysSinceLastVisit = Math.floorDiv(hoursSinceLastVisit, 24);
-        checkOnGranny(granny, daysSinceLastVisit);
+        checkOnGranny(granny);
         granny.setLastVisit(LocalDateTime.now());
     }
 
-    private void checkOnGranny(Granny granny, int daysSinceLastVisit) {
-        List<Stat> grannyStats = granny.getStats();
-        Random random = new Random();
-        while (daysSinceLastVisit > 0) {
-            daysSinceLastVisit--;
-            Stat randomStat = grannyStats.get(random.nextInt(3));
-            randomStat.decrementStat();
-        }
+    private void checkOnGranny(Granny granny) {
+        decrementGrannyStatByNotVisitedDays(granny);
         shouldGrannyRetire(granny);
     }
 
+    private void decrementGrannyStatByNotVisitedDays(Granny granny) {
+        LocalDateTime lastVisit = granny.getLastVisit();
+        int daysSinceLastVisit = extractDaysSinceLastVisit(lastVisit);
+
+        while (daysSinceLastVisit > 0) {
+            daysSinceLastVisit--;
+            decrementRandomStat(granny);
+        }
+    }
+
+    private int extractDaysSinceLastVisit(LocalDateTime lastVisit) {
+        int hoursSinceLastVisit = extractHoursSinceLastVisit(lastVisit);
+        return Math.floorDiv(hoursSinceLastVisit, 24);
+    }
+
+    private int extractHoursSinceLastVisit(LocalDateTime lastVisit) {
+        return (int) ChronoUnit.HOURS.between(lastVisit, LocalDateTime.now());
+    }
+
+    private void decrementRandomStat(Granny granny) {
+        Stat randomStat = getRandomStatFromGranny(granny);
+        randomStat.decrementStat();
+    }
+    private Stat getRandomStatFromGranny(Granny granny){
+        List<Stat> grannyStats = granny.getStats();
+        return grannyStats.get(random.nextInt(3));
+    }
+
     private void shouldGrannyRetire(Granny granny) {
+        if (checkGrannyStatsIfLowest(granny)) {
+            granny.setRetired(true);
+        }
+    }
+
+    private boolean checkGrannyStatsIfLowest(Granny granny) {
         Stat mood = granny.getMood();
         Stat health = granny.getHealth();
         Stat environment = granny.getEnvironment();
-        if (mood == Mood.GRUMPY && health == Health.SICK && environment == Environment.IN_RUINS) {
-            granny.setRetired(true);
-        }
+        return mood == Mood.GRUMPY && health == Health.SICK && environment == Environment.IN_RUINS;
     }
 
     public void feedPie(int id) {
