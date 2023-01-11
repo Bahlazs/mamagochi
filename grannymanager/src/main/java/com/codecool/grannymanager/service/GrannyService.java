@@ -62,8 +62,13 @@ public class GrannyService {
     }
 
     private void decrementRandomStat(Granny granny) {
-        Stat randomStat = getRandomStatFromGranny(granny);
-        randomStat.decrementStat();
+        Stat health = granny.getHealth();
+        Stat mood = granny.getMood();
+        Stat environment = granny.getEnvironment();
+        Stat[] stats = {health, mood, environment};
+        Stat randomStat = stats[random.nextInt(stats.length)];
+        Stat decrementedStat = randomStat.decrementStat();
+
     }
     private Stat getRandomStatFromGranny(Granny granny){
         List<Stat> grannyStats = granny.getStats();

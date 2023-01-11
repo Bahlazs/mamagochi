@@ -6,10 +6,8 @@ public enum Mood implements Stat {
 
     @Override
     public Stat incrementStat() {
-        Stat statChangeTo;
-        if(ordinal() == MAX){
-            statChangeTo = this;
-        } else{
+        Stat statChangeTo = this;
+        if (ordinal() != MAX) {
             statChangeTo = values()[ordinal() - 1];
         }
         return statChangeTo;
@@ -17,13 +15,10 @@ public enum Mood implements Stat {
 
     @Override
     public Stat decrementStat() {
-        Stat statChangeTo;
-        if(ordinal() == MIN){
-            statChangeTo = this;
-        } else{
+        Stat statChangeTo = this;
+        if (ordinal() != MIN) {
             statChangeTo = values()[ordinal() + 1];
         }
         return statChangeTo;
-
     }
 }
