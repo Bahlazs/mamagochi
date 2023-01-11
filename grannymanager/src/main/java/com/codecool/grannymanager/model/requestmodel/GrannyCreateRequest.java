@@ -1,4 +1,4 @@
-package com.codecool.grannymanager.model;
+package com.codecool.grannymanager.model.requestmodel;
 
 public class GrannyCreateRequest {
     private int userId;

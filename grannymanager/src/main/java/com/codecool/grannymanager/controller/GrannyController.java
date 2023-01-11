@@ -1,7 +1,8 @@
 package com.codecool.grannymanager.controller;
 
 import com.codecool.grannymanager.model.Granny;
-import com.codecool.grannymanager.model.GrannyCreateRequest;
+import com.codecool.grannymanager.model.requestmodel.GrannyCreateRequest;
+import com.codecool.grannymanager.model.requestmodel.GrannyGetRequest;
 import com.codecool.grannymanager.service.GrannyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,27 +26,27 @@ public class GrannyController {
         return ResponseEntity.ok().body(userId);
     }
 
-    @GetMapping("/visit-granny{id}")
-    public ResponseEntity<Granny> visitGranny(@PathVariable int id) {
-        Granny granny = grannyService.visitGranny(id);
+    @GetMapping("/visit-granny")
+    public ResponseEntity<Granny> visitGranny(@RequestBody GrannyGetRequest request) {
+        Granny granny = grannyService.visitGranny(request.getUserId());
         return ResponseEntity.ok().body(granny);
     }
 
-    @GetMapping("/feed-pie{id}")
-    public ResponseEntity<Granny> feedPie(@PathVariable int id) {
-        Granny granny = grannyService.feedPie(id);
+    @GetMapping("/feed-pie")
+    public ResponseEntity<Granny> feedPie(@RequestBody GrannyGetRequest request) {
+        Granny granny = grannyService.feedPie(request.getUserId());
         return ResponseEntity.ok().body(granny);
     }
 
-    @GetMapping("/play-mahjong{id}")
-    public ResponseEntity<Granny> playMahjong(@PathVariable int id) {
-        Granny granny = grannyService.playMahjong(id);
+    @GetMapping("/play-mahjong")
+    public ResponseEntity<Granny> playMahjong(@RequestBody GrannyGetRequest request) {
+        Granny granny = grannyService.playMahjong(request.getUserId());
         return ResponseEntity.ok().body(granny);
     }
 
-    @GetMapping("/clean-house{id}")
-    public ResponseEntity<Granny> cleanHouse(@PathVariable int id) {
-        Granny granny = grannyService.cleanHouse(id);
+    @GetMapping("/clean-house")
+    public ResponseEntity<Granny> cleanHouse(@RequestBody GrannyGetRequest request) {
+        Granny granny = grannyService.cleanHouse(request.getUserId());
         return ResponseEntity.ok().body(granny);
     }
 
