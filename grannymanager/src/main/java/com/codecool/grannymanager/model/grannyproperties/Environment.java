@@ -2,7 +2,17 @@ package com.codecool.grannymanager.model.grannyproperties;
 
 public enum Environment implements Stat {
 
-    TIDY, MESSY, IN_RUINS;
+    TIDY("Tidy"), MESSY("Messy"), IN_RUINS("In ruins");
+
+    private String stringValueOfEnum;
+    @Override
+    public String getStringValueOfEnum() {
+        return stringValueOfEnum;
+    }
+
+    Environment(String stringValueOfEnum) {
+        this.stringValueOfEnum = stringValueOfEnum;
+    }
 
     @Override
     public Stat incrementStat() {

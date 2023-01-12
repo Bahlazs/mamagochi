@@ -29,6 +29,10 @@ public class GrannyService {
     public void createGranny(int userId, String name) {
         grannyRepository.createGranny(userId, name);
     }
+    //Presentation purpose only
+    public Granny getGranny(int userId){
+        return grannyRepository.findGrannyById(userId);
+    }
 
     public Granny visitGranny(int id) {
         Granny granny = grannyRepository.findGrannyById(id);
