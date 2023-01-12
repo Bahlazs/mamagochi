@@ -2,7 +2,17 @@ package com.codecool.grannymanager.model.grannyproperties;
 
 public enum Health implements Stat {
 
-    HEALTHY,WEAK,SICK;
+    HEALTHY("Healthy"),WEAK("Weak"),SICK("Sick");
+
+    private String stringValueOfEnum;
+    @Override
+    public String getStringValueOfEnum() {
+        return stringValueOfEnum;
+    }
+
+    Health(String stringValueOfEnum) {
+        this.stringValueOfEnum = stringValueOfEnum;
+    }
 
     @Override
     public Stat incrementStat() {

@@ -13,4 +13,5 @@ public interface Stat {
     Stat incrementStat();
     Stat decrementStat();
 
+    String getStringValueOfEnum();
 }

@@ -2,7 +2,17 @@ package com.codecool.grannymanager.model.grannyproperties;
 
 public enum Mood implements Stat {
 
-    HAPPY,BORED,GRUMPY;
+    HAPPY("Happy"),BORED("Bored"),GRUMPY("Grumpy");
+    @Override
+    public String getStringValueOfEnum() {
+        return stringValueOfEnum;
+    }
+
+    Mood(String stringValueOfEnum) {
+        this.stringValueOfEnum = stringValueOfEnum;
+    }
+
+    private String stringValueOfEnum;
 
     @Override
     public Stat incrementStat() {
