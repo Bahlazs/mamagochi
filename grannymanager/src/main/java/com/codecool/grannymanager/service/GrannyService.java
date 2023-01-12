@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;
@@ -18,12 +19,15 @@ import java.util.function.Consumer;
 @Service
 public class GrannyService {
 
+    private List<Consumer<Granny>> events;
+
     private final Random random = new Random();
     private final GrannyRepository grannyRepository;
 
     @Autowired
     public GrannyService(GrannyRepository grannyRepository) {
         this.grannyRepository = grannyRepository;
+        initializeConsumerList();
     }
 
     public void createGranny(int userId, String name) {
@@ -67,20 +71,19 @@ public class GrannyService {
     }
 
     private void decrementRandomStat(Granny granny) {
-        Consumer<Granny>[] events = createConsumerArray();
-        Consumer<Granny> randomEvent = getRandomEvent(events);
+        Consumer<Granny> randomEvent = getRandomEvent();
         randomEvent.accept(granny);
     }
 
-    private Consumer<Granny>[] createConsumerArray() {
+    private void initializeConsumerList() {
         Consumer<Granny> healthDecrease = this::decrementHealthStat;
         Consumer<Granny> moodDecrease = this::decrementMoodStat;
         Consumer<Granny> environmentDecrease = this::decrementEnvironmentStat;
-        return new Consumer[]{healthDecrease, moodDecrease, environmentDecrease};
+        this.events = List.of(healthDecrease, moodDecrease, environmentDecrease);
     }
 
-    private Consumer<Granny> getRandomEvent(Consumer<Granny>[] events) {
-        return events[random.nextInt(events.length)];
+    private Consumer<Granny> getRandomEvent() {
+        return events.get(random.nextInt(events.size()));
     }
 
     private void decrementHealthStat(Granny granny) {
@@ -145,6 +148,12 @@ public class GrannyService {
         Granny granny = grannyRepository.findGrannyById(id);
         LocalDateTime lastVisit = granny.getLastVisit();
         granny.setLastVisit(lastVisit.minusDays(1));
+
+    }
+    public void jumpOneWeek(int id) {
+        Granny granny = grannyRepository.findGrannyById(id);
+        LocalDateTime lastVisit = granny.getLastVisit();
+        granny.setLastVisit(lastVisit.minusDays(7));
 
     }
 
