@@ -16,7 +16,7 @@ public enum Health implements Stat {
     @Override
     public Stat decrementStat() {
         Stat statChangeTo = this;
-        if (ordinal() < values().length) {
+        if (ordinal() < values().length - 1) {
             statChangeTo = values()[ordinal() + 1];
         }
         return statChangeTo;
