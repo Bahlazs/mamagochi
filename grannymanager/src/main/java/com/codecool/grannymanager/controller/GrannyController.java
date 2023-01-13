@@ -29,11 +29,11 @@ public class GrannyController {
     }
 
     @PostMapping("/create-granny")
-    public ResponseEntity<Integer> createGranny(@RequestBody GrannyCreateRequest request) {
+    public ResponseEntity<String> createGranny(@RequestBody GrannyCreateRequest request) {
         int userId = request.getUserId();
         String name = request.getName();
         grannyService.createGranny(userId, name);
-        return ResponseEntity.ok().body(userId);
+        return ResponseEntity.ok().body("Granny created with userId: " + userId);
     }
 
     @GetMapping("/visit-granny")
