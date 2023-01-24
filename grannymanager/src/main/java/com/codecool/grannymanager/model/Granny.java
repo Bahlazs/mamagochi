@@ -65,7 +65,7 @@ public class Granny {
         return healthStat;
     }
 
-    public void setHealth(int health) {
+    public void setHealth(int health) throws IllegalArgumentException {
         this.healthStat.setStat(health);
     }
 
@@ -73,7 +73,7 @@ public class Granny {
         return moodStat;
     }
 
-    public void setMood(int mood) {
+    public void setMood(int mood) throws IllegalArgumentException{
         this.moodStat.setStat(mood);
     }
 
@@ -81,7 +81,7 @@ public class Granny {
         return environmentStat;
     }
 
-    public void setEnvironment(int environment) {
+    public void setEnvironment(int environment) throws IllegalArgumentException {
         this.environmentStat.setStat(environment);
     }
 }
