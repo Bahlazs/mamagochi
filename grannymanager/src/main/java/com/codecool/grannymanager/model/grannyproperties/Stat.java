@@ -1,17 +1,39 @@
 package com.codecool.grannymanager.model.grannyproperties;
 
-public interface Stat {
+import lombok.Getter;
 
-//    default Stat incrementStat(){
-//        Stat statChangeTo = this;
-//        if (ordinal() > 0) {
-//            statChangeTo = values()[ordinal() - 1];
-//        }
-//        return statChangeTo;
-//    };
+@Getter
+public abstract class Stat {
 
-    Stat incrementStat();
-    Stat decrementStat();
+    private int stat;
 
-    String getStringValueOfEnum();
+    protected String[] values;
+
+    public Stat() {
+        this.stat = 0;
+        this.values = new String[3];
+    }
+
+    public void setStat (int stat) throws IllegalArgumentException {
+        if (stat < 0 || stat > values.length) {
+            throw new IllegalArgumentException("Can't set stat to that value");
+        }
+        this.stat = stat;
+    }
+
+    public String getStringValueOfStat() {
+        return values[stat];
+    }
+
+    public void incrementStat() {
+        if (this.stat < 2) {
+            this.stat++;
+        }
+    }
+
+    public void decrementStat() {
+        if (this.stat > 0) {
+            this.stat--;
+        }
+    }
 }

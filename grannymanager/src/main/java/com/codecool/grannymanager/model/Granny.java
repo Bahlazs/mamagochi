@@ -3,50 +3,37 @@ package com.codecool.grannymanager.model;
 import com.codecool.grannymanager.model.grannyproperties.Environment;
 import com.codecool.grannymanager.model.grannyproperties.Mood;
 import com.codecool.grannymanager.model.grannyproperties.Health;
-import com.codecool.grannymanager.model.grannyproperties.Stat;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
 public class Granny {
 
-    private int userId;
-
+    public static final int START_AGE = 60;
+    private final int userId;
     private String name;
-
     private int age;
-
     private LocalDateTime lastVisit;
-
-
-    private Stat health;
-    private Stat mood;
-    private Stat environment;
+    private final Environment environmentStat;
+    private final Health healthStat;
+    private final Mood moodStat;
 
     private boolean retired = false;
 
-
     public Granny(int userId, String name) {
-        this.userId = userId;
-        this.name = name;
-        this.age = 60;
-        this.lastVisit = LocalDateTime.now();
-        initializeStats();
+        this(userId, name, new Environment(), new Health(), new Mood());
     }
 
-    private void initializeStats() {
-        this.health = Health.HEALTHY;
-        this.mood = Mood.HAPPY;
-        this.environment = Environment.TIDY;
+    public Granny(int userId, String name, Environment environmentStat, Health healthStat, Mood moodStat) {
+        this.userId = userId;
+        this.name = name;
+        this.age = START_AGE;
+        this.lastVisit = LocalDateTime.now();
+        this.environmentStat = environmentStat;
+        this.healthStat = healthStat;
+        this.moodStat = moodStat;
     }
 
     public int getUserId() {
         return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public int getAge() {
@@ -74,27 +61,27 @@ public class Granny {
         return lastVisit;
     }
 
-    public Stat getHealth() {
-        return health;
+    public Health getHealth() {
+        return healthStat;
     }
 
-    public void setHealth(Stat health) {
-        this.health = health;
+    public void setHealth(int health) {
+        this.healthStat.setStat(health);
     }
 
-    public Stat getMood() {
-        return mood;
+    public Mood getMood() {
+        return moodStat;
     }
 
-    public void setMood(Stat mood) {
-        this.mood = mood;
+    public void setMood(int mood) {
+        this.moodStat.setStat(mood);
     }
 
-    public Stat getEnvironment() {
-        return environment;
+    public Environment getEnvironment() {
+        return environmentStat;
     }
 
-    public void setEnvironment(Stat environment) {
-        this.environment = environment;
+    public void setEnvironment(int environment) {
+        this.environmentStat.setStat(environment);
     }
 }
