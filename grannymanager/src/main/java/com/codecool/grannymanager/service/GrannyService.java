@@ -19,15 +19,11 @@ import java.util.function.Consumer;
 @Service
 public class GrannyService {
 
-    private List<Consumer<Granny>> events;
-
-    private final Random random = new Random();
     private final GrannyRepository grannyRepository;
 
     @Autowired
     public GrannyService(GrannyRepository grannyRepository) {
         this.grannyRepository = grannyRepository;
-        initializeConsumerList();
     }
 
     public void createGranny(int userId, String name) {
@@ -68,37 +64,24 @@ public class GrannyService {
     }
 
     private void decrementRandomStat(Granny granny) {
-        Consumer<Granny> randomEvent = getRandomEvent();
-        randomEvent.accept(granny);
-    }
-
-    private void initializeConsumerList() {
-        Consumer<Granny> healthDecrease = this::decrementHealthStat;
-        Consumer<Granny> moodDecrease = this::decrementMoodStat;
-        Consumer<Granny> environmentDecrease = this::decrementEnvironmentStat;
-        this.events = List.of(healthDecrease, moodDecrease, environmentDecrease);
-    }
-
-    private Consumer<Granny> getRandomEvent() {
-        return events.get(random.nextInt(events.size()));
+        int randomNum = (int) ((Math.random() * (3 - 1)) + 1);
+        switch (randomNum) {
+            case 1 -> decrementHealthStat(granny);
+            case 2 -> decrementEnvironmentStat(granny);
+            case 3 -> decrementMoodStat(granny);
+        }
     }
 
     private void decrementHealthStat(Granny granny) {
-        Stat health = granny.getHealth();
-        Stat decrementedHealthStat = health.decrementStat();
-        granny.setHealth(decrementedHealthStat);
+        granny.getHealth().decrementStat();
     }
 
     private void decrementMoodStat(Granny granny) {
-        Stat mood = granny.getMood();
-        Stat decrementedMoodStat = mood.decrementStat();
-        granny.setMood(decrementedMoodStat);
+        granny.getMood().decrementStat();
     }
 
     private void decrementEnvironmentStat(Granny granny) {
-        Stat environment = granny.getEnvironment();
-        Stat decrementedEnvironmentStat = environment.decrementStat();
-        granny.setEnvironment(decrementedEnvironmentStat);
+        granny.getEnvironment().decrementStat();
     }
 
     private void shouldGrannyRetire(Granny granny) {
@@ -108,36 +91,24 @@ public class GrannyService {
     }
 
     private boolean checkGrannyStatsIfLowest(Granny granny) {
-        Stat mood = granny.getMood();
-        Stat health = granny.getHealth();
-        Stat environment = granny.getEnvironment();
-        return mood == Mood.GRUMPY && health == Health.SICK && environment == Environment.IN_RUINS;
+        return granny.getMood().getStat() == 0 && granny.getHealth().getStat() == 0 && granny.getEnvironment().getStat() == 0;
     }
 
     public Granny feedPie(int id) {
         Granny granny = grannyRepository.findGrannyById(id);
-        Stat health = granny.getHealth();
-        Stat changedStat = health.incrementStat();
-        granny.setHealth(changedStat);
-
+        granny.getHealth().incrementStat();
         return granny;
     }
 
     public Granny playMahjong(int id) {
         Granny granny = grannyRepository.findGrannyById(id);
-        Stat mood = granny.getMood();
-        Stat changedStat = mood.incrementStat();
-        granny.setMood(changedStat);
-
+        granny.getMood().incrementStat();
         return granny;
     }
 
     public Granny cleanHouse(int id) {
         Granny granny = grannyRepository.findGrannyById(id);
-        Stat environment = granny.getEnvironment();
-        Stat changedStat = environment.incrementStat();
-        granny.setEnvironment(changedStat);
-
+        granny.getEnvironment().incrementStat();
         return granny;
     }
 
