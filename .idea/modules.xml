@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/el-proyecte-grande-sprint-1-java-Bahlazs.iml" filepath="$PROJECT_DIR$/.idea/el-proyecte-grande-sprint-1-java-Bahlazs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/grannymanager/grannymanager.iml" filepath="$PROJECT_DIR$/grannymanager/grannymanager.iml" />
     </modules>
   </component>
 </project>
