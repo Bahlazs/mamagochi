@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GrannymanagerApplication {
+public class GrannyManagerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GrannymanagerApplication.class, args);
+		SpringApplication.run(GrannyManagerApplication.class, args);
 	}
 
 }

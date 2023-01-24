@@ -29,11 +29,10 @@ public class GrannyController {
     }
 
     @PostMapping("/create-granny")
-    public ResponseEntity<String> createGranny(@RequestBody GrannyCreateRequest request) {
+    public void createGranny(@RequestBody GrannyCreateRequest request) {
         int userId = request.getUserId();
         String name = request.getName();
         grannyService.createGranny(userId, name);
-        return ResponseEntity.ok().body("Granny created with userId: " + userId);
     }
 
     @GetMapping("/visit-granny")
@@ -43,72 +42,29 @@ public class GrannyController {
     }
 
     @GetMapping("/feed-pie")
-    public ResponseEntity<String> feedPie(@RequestBody GrannyGetRequest request) {
-        String stringValueOfOriginalStat = getStringValueOfGrannyOriginalHealthStat(request);
-        Granny granny = grannyService.feedPie(request.getUserId());
-        String stringValueOfNewStat = getStringValueOfGrannyNewHealthStat(granny);
-        return ResponseEntity.ok().body("Granny Health changed from \"" + stringValueOfOriginalStat + "\" to \"" + stringValueOfNewStat + "\"");
-    }
-    //Presentation purpose only
-    private String getStringValueOfGrannyOriginalHealthStat(GrannyGetRequest request) {
-        Granny granny = grannyService.getGranny(request.getUserId());
-        Stat grannyOriginalStat = granny.getHealth();
-        return grannyOriginalStat.getStringValueOfEnum();
-    }
-    //Presentation purpose only
-    private String getStringValueOfGrannyNewHealthStat(Granny granny) {
-        Stat grannyNewStat = granny.getHealth();
-        return grannyNewStat.getStringValueOfEnum();
+    public void feedPie(@RequestBody GrannyGetRequest request) {
+        grannyService.feedPie(request.getUserId());
     }
 
     @GetMapping("/play-mahjong")
-    public ResponseEntity<String> playMahjong(@RequestBody GrannyGetRequest request) {
-        String stringValueOfOriginalStat = getStringValueOfGrannyOriginalMoodStat(request);
-        Granny granny = grannyService.playMahjong(request.getUserId());
-        String stringValueOfNewStat = getStringValueOfGrannyNewMoodStat(granny);
-        return ResponseEntity.ok().body("Granny Mood changed from \"" + stringValueOfOriginalStat + "\" to \"" + stringValueOfNewStat + "\"");
-    }
-    //Presentation purpose only
-    private String getStringValueOfGrannyOriginalMoodStat(GrannyGetRequest request) {
-        Granny granny = grannyService.getGranny(request.getUserId());
-        Stat grannyOriginalStat = granny.getMood();
-        return grannyOriginalStat.getStringValueOfEnum();
-    }
-    //Presentation purpose only
-    private String getStringValueOfGrannyNewMoodStat(Granny granny) {
-        Stat grannyNewStat = granny.getMood();
-        return grannyNewStat.getStringValueOfEnum();
+    public void playMahjong(@RequestBody GrannyGetRequest request) {
+        grannyService.playMahjong(request.getUserId());
     }
 
     @GetMapping("/clean-house")
-    public ResponseEntity<String> cleanHouse(@RequestBody GrannyGetRequest request) {
-        String stringValueOfOriginalStat = getStringValueOfGrannyOriginalEnvironmentStat(request);
-        Granny granny = grannyService.cleanHouse(request.getUserId());
-        String stringValueOfNewStat = getStringValueOfGrannyNewEnvironmentStat(granny);
-        return ResponseEntity.ok().body("Granny Environment changed from \"" + stringValueOfOriginalStat + "\" to \"" + stringValueOfNewStat + "\"");
-    }
-    //Presentation purpose only
-    private String getStringValueOfGrannyOriginalEnvironmentStat(GrannyGetRequest request) {
-        Granny granny = grannyService.getGranny(request.getUserId());
-        Stat grannyOriginalStat = granny.getEnvironment();
-        return grannyOriginalStat.getStringValueOfEnum();
-    }
-    //Presentation purpose only
-    private String getStringValueOfGrannyNewEnvironmentStat(Granny granny) {
-        Stat grannyNewStat = granny.getEnvironment();
-        return grannyNewStat.getStringValueOfEnum();
+    public void cleanHouse(@RequestBody GrannyGetRequest request) {
+        grannyService.cleanHouse(request.getUserId());
     }
 
+
     @GetMapping("/spend-one-day")
-    public ResponseEntity<String> spendOneDay(@RequestBody GrannyGetRequest request) {
+    public void spendOneDay(@RequestBody GrannyGetRequest request) {
         grannyService.jumpOneDay(request.getUserId());
-        return ResponseEntity.ok().body("One day spent! You should check on Granny");
     }
 
     @GetMapping("/spend-one-week")
-    public ResponseEntity<String> spendOneWeek(@RequestBody GrannyGetRequest request) {
+    public void spendOneWeek(@RequestBody GrannyGetRequest request) {
         grannyService.jumpOneWeek(request.getUserId());
-        return ResponseEntity.ok().body("One week spent! You really should check on Granny");
     }
 
 }
