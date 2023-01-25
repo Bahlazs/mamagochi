@@ -5,14 +5,14 @@ import {useEffect} from "react";
 
 
 
-export default function UserComponent(setUsername, userName, loginBob, logoutBob) {
+export default function UserComponent({loginBob, logoutBob, userName}) {
 
 
     if (userName === undefined) {
         return (
             <div>
                 <button>Create Granny</button>
-                <button onClick={() =>{loginBob(setUsername)}}>Login
+                <button onClick={loginBob}>Login
                 </button>
             </div>
         )
@@ -20,7 +20,7 @@ export default function UserComponent(setUsername, userName, loginBob, logoutBob
         return (
             <div>
                 <button>Profile</button>
-                <button onClick={() =>{logoutBob(setUsername)}}>Logout
+                <button onClick={logoutBob}>Logout
                 </button>
             </div>
         )

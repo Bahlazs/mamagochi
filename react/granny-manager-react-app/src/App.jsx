@@ -1,30 +1,33 @@
 
 import './App.css'
 import NavBar from './components/NavBar.jsx'
-import { ReactSession } from 'react-client-session';
-import {useState} from "react";
+
+import {useEffect, useState} from "react";
 
 
 
-function loginBob(setUserName){
-    ReactSession.set("username", "Bob");
-    setUserName(ReactSession.get("username"))
-}
+
 
 
 
 function App() {
-    const [userName, setUsername] = useState(ReactSession.get("username"));
+
+    const [userName, setUserName] = useState(undefined);
 
     function logoutBob(){
-        sessionStorage.removeItem('username');
-        setUserName(ReactSession.get("username"))
+        setUserName(undefined)
     }
 
+    function loginBob(){
+        setUserName("Bob")
+
+    }
+
+   
 
   return (
     <div className="App">
-      <NavBar setUserName={setUsername} userName = {userName} logoutBob={logoutBob} loginBob={loginBob}/>
+      <NavBar userName={userName} loginBob={loginBob} logoutBob={logoutBob}/>
     </div>
   )
 }
