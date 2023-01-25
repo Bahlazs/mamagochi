@@ -1,31 +1,54 @@
-import grannyRoom from '../assets/stock-vector-vintage-interior-of-living-room-with-couch-armchair-clock-and-tv-on-stand-vector-cartoon-1922620874-transformed.jpeg'
-import {Container} from "@mui/material";
+import grannyRoom from '../assets/livingroom.jpeg'
+import {Container, Grid} from "@mui/material";
 import Box from '@mui/material/Box';
 
-
-function BoxSx() {
+function myGrid() {
     return (
-        <Box
-            sx={{
-                width: 300,
-                height: 300,
-                backgroundImage: grannyRoom,
-                '&:hover': {
-                    backgroundColor: 'primary.main',
-                    opacity: [0.9, 0.8, 0.7],
-                },
-            }}
-        />
-    );
+        <Grid
+            container
+            spacing={0}
+            direction="column"
+            alignItems="center"
+            justifyContent="center"
+            style={{ minHeight: '100vh' }}
+        > </Grid>
+    )
 }
 
 function GrannyPage() {
     return (
-        <Container maxWidth="sm">
+        // <Grid item xs="true">
 
-            <BoxSx></BoxSx>
-
-        </Container>
+        <Grid container spacing={2} sx={{paddingTop: "2vh"}}>
+            <Grid
+                item xs={12}
+                sx={{
+                    backgroundImage: `url(${grannyRoom})`,
+                    backgroundPosition: `center`,
+                    backgroundRepeat: `no-repeat`,
+                    backgroundSize: `100%`,
+                    height: "60vh",
+                    width: "100vw",
+                    marginLeft: "5vw",
+                }}
+            >
+            </Grid>
+            <Grid item xs={4}>
+                <span>xs=4</span>
+            </Grid>
+            <Grid item xs={4}>
+                <span>xs=4</span>
+            </Grid>
+            <Grid item xs={4}>
+                <span>xs=4</span>
+            </Grid>
+        </Grid>
+        //*</Grid>*/
+        // <Container maxWidth="sm">
+        //
+        //
+        //
+        //  </Container>
 
     )
 
