@@ -1,15 +1,15 @@
-import Box from '@mui/material/Box'
+import * as React from 'react';
+import UserComponent from "./UserComponent.jsx";
 
-const NavBar = () => {
+function NavBar(setUsername, userName, logoutBob, loginBob) {
+
     return (
-        <Box sx= {{
-            width: 1,
-            height: 50,
-            backGroundColor: "black",
-        }}>
-
-        </Box>
-    )
+        <div className={"nav-bar"}>
+            <button id={"about"}>About</button>
+            <button id={"features"}>Features</button>
+            <div id={"user-block"}><UserComponent setUsername={setUsername} userName={userName} loginBob={loginBob} logoutBob={logoutBob}/></div>
+        </div>
+    );
 }
 
-export default NavBar
+export default NavBar;
