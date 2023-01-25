@@ -1,8 +1,7 @@
 
 import './App.css'
 import NavBar from './components/NavBar.jsx'
-
-import {useEffect, useState} from "react";
+import {useState} from "react";
 
 
 
@@ -11,23 +10,22 @@ import {useEffect, useState} from "react";
 
 
 function App() {
-
-    const [userName, setUserName] = useState(undefined);
+    const [userName, setUsername] = useState(undefined)
 
     function logoutBob(){
-        setUserName(undefined)
+        setUsername(undefined)
     }
 
     function loginBob(){
-        setUserName("Bob")
+        setUsername("Bob")
 
     }
 
-   
+
 
   return (
     <div className="App">
-      <NavBar userName={userName} loginBob={loginBob} logoutBob={logoutBob}/>
+      <NavBar userName = {userName} logoutBob={logoutBob} loginBob={loginBob}/>
     </div>
   )
 }

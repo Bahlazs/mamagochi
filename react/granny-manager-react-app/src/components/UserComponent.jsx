@@ -5,22 +5,23 @@ import {useEffect} from "react";
 
 
 
-export default function UserComponent({loginBob, logoutBob, userName}) {
+
+export default function UserComponent({userName, loginBob, logoutBob}) {
 
 
     if (userName === undefined) {
         return (
             <div>
-                <button>Create Granny</button>
-                <button onClick={loginBob}>Login
+                <button className="nav-bar-button">Create Granny</button>
+                <button className="nav-bar-button" onClick={loginBob}>Login
                 </button>
             </div>
         )
     } else {
         return (
             <div>
-                <button>Profile</button>
-                <button onClick={logoutBob}>Logout
+                <button className="nav-bar-button">Profile</button>
+                <button className="nav-bar-button" onClick={logoutBob}>Logout
                 </button>
             </div>
         )
