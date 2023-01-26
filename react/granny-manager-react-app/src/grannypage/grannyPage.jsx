@@ -8,8 +8,8 @@ import StatBar from "../components/StatBar.jsx";
 import {useEffect, useState} from "react";
 
 
-function GrannyPage() {
-  const temporaryId = 0;
+function GrannyPage({grannyCreated}) {
+  const temporaryId = 1;
 
   const greenStat = '#83ab7c'
   const yellowStat = '#E3A924'
@@ -49,9 +49,9 @@ function GrannyPage() {
 
     setInitialStats();
 
-  }, []);
+  }, [grannyCreated]);
 
-  useEffect(setBarColors, [health, mood, environment])
+  useEffect(setBarColors, [mood, health, environment])
 
   const pickColor = (stat) => {
     if (stat === 0) {
@@ -66,6 +66,7 @@ function GrannyPage() {
   return (
 
       <Grid container spacing={2} className='container'>
+        <Grid item xs={12}>MAMAGOTCHI</Grid>
         <Grid className='granny-room' item xs={12}>
           <img src={wholeGranny}/>
 
