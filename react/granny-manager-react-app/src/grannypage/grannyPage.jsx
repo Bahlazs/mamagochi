@@ -1,8 +1,9 @@
-import grannyRoom from '../assets/livingroom.jpeg'
+import './grannyPage.css'
 import {Container, Grid} from "@mui/material";
 import Box from '@mui/material/Box';
 import Stats from "../components/Stats.jsx";
 import StatActionButton from "../components/StatActionButton.jsx";
+import StatBar from "../components/StatBar.jsx";
 import {useState} from "react";
 
 // function myGrid() {
@@ -23,19 +24,8 @@ function GrannyPage() {
     return (
         // <Grid item xs="true">
 
-        <Grid container spacing={2} sx={{paddingTop: "2vh"}}>
-            <Grid
-                item xs={12}
-                sx={{
-                    backgroundImage: `url(${grannyRoom})`,
-                    backgroundPosition: `center`,
-                    backgroundRepeat: `no-repeat`,
-                    backgroundSize: `100%`,
-                    height: "60vh",
-                    width: "80vw",
-                    marginLeft: "5vw",
-                }}
-            >
+        <Grid container spacing={2} className='container'>
+            <Grid className='granny-room' item xs={12}>
                 <div>
                     <img/>
                 </div>
@@ -53,13 +43,13 @@ function GrannyPage() {
             </Grid>
 
             <Grid item xs={4}>
-                <p></p>
+                <StatBar />
             </Grid>
             <Grid item xs={4}>
-                <p></p>
+              <StatBar />
             </Grid>
             <Grid item xs={4}>
-                <p></p>
+              <StatBar />
             </Grid>
 
             <Grid item xs={4}>

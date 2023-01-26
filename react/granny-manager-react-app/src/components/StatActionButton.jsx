@@ -13,7 +13,6 @@ function StatActionButton( { apiLink, text, setState } ) {
                 }
               })
             } }
-            {/*Process response -> set corresponding state*/}
             >
               {text}
             </button>
