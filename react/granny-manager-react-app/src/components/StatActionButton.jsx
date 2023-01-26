@@ -7,7 +7,6 @@ function StatActionButton({apiLink, jsonKey, setState, actionText}) {
         const updatedData = response[jsonKey].stringValueOfStat;
         setState(updatedData);
     }
-    // TODO: fetch doesn't work yet on click.
     return (
         <button
             className='action-btn'
