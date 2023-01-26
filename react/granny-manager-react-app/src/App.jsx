@@ -1,11 +1,8 @@
-
 import './App.css'
 import GrannyPage from "./grannypage/grannyPage.jsx";
 import NavBar from './components/NavBar.jsx'
-import React, {useState} from "react";
 import {createBrowserRouter, Route, RouterProvider, Routes} from "react-router-dom";
 import LandingPage from "./components/LandingPage.jsx";
-import GrannyPage from "./components/GrannyPage.jsx";
 
 import {useEffect, useState} from "react";
 
@@ -19,7 +16,7 @@ function App() {
         element: <LandingPage userName={userName}/>
     }, {
         path: "/visit-granny",
-        element: <GrannyPage/>
+        element: <GrannyPage grannyCreated={grannyCreated}/>
     }])
 
     function logoutBob() {
@@ -32,24 +29,10 @@ function App() {
     }
 
     useEffect( () => {
-        fetchData()
-        // const createGranny = async () => {
-        //     return await fetchData()
-        // }
-        // // const res = createGranny()
-        // // console.log(res.json())
-        // createGranny()
-    }, [])
-    //
-    // useEffect(() => {
-    //     const getTasks = async () => {
-    //         const tasksFromServer = await fetchTasks()
-    //         setTasks(tasksFromServer)
-    //     }
-    //     getTasks()
-    // }, [])
+        createGranny()
+    }, []);
 
-    const fetchData = async () => {
+    const createGranny = async () => {
          const res = await fetch(`http://localhost:8080/granny/create-granny`, {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
@@ -74,12 +57,12 @@ function App() {
     </div>
   )
 
-    return (
-        <div className="App">
-            {/*<NavBar userName={userName} loginBob={loginBob} logoutBob={logoutBob}/>*/}
-            <GrannyPage grannyCreated={grannyCreated}/>
-        </div>
-    )
+    // return (
+    //     <div className="App">
+    //         {/*<NavBar userName={userName} loginBob={loginBob} logoutBob={logoutBob}/>*/}
+    //         <GrannyPage grannyCreated={grannyCreated}/>
+    //     </div>
+    // )
 }
 
 export default App
