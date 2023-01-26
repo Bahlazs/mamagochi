@@ -1,14 +1,10 @@
 function StatActionButton({apiLink, jsonKey, setState, actionText}) {
     async function updateData() {
         console.log(apiLink);
-        const response = await fetch(apiLink, {
-            method: "GET",
-            headers: {
-                'Content-type': 'application/json'
-            }
-        }).then(res => res.json());
+        //TODO: add method + header when backend is changed to put request
+        const response = await fetch(apiLink).then(res => res.json());
         // TODO: have a uniform key for stats OR give the key as prop from parent
-        const updatedData = response[jsonKey];
+        const updatedData = response[jsonKey].stringValueOfStat;
         setState(updatedData);
     }
     // TODO: fetch doesn't work yet on click.

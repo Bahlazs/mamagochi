@@ -81,26 +81,26 @@ function GrannyPage() {
             </Grid>
 
             <Grid item xs={4}>
-                <p>{environment}</p>
+                <p>{environment}-- color representation</p>
             </Grid>
             <Grid item xs={4}>
-                <p>{health}</p>
+                <p>{health} -- color representation</p>
             </Grid>
             <Grid item xs={4}>
-                <p>{mood}</p>
+                <p>{mood} -- color representation</p>
             </Grid>
 
             <Grid item xs={4}>
                 <StatActionButton apiLink={`http://localhost:8080/granny/clean-house/${temporaryId}`}
-                                  jsonKey= "environment.stringValueOfStat" setState={setEnvironment} actionText="Clean House"/>
+                                  jsonKey= "environment" setState={setEnvironment} actionText="Clean House"/>
             </Grid>
             <Grid item xs={4}>
                 <StatActionButton apiLink={`http://localhost:8080/granny/feed-pie/${temporaryId}`}
-                                  jsonKey= "health.stringValueOfStat" setState={setHealth} actionText="Feed Pie"/>
+                                  jsonKey= "health" setState={setHealth} actionText="Feed Pie"/>
             </Grid>
             <Grid item xs={4}>
                 <StatActionButton apiLink={`http://localhost:8080/granny/play-mahjong/${temporaryId}`}
-                                  jsonKey= "mood.stringValueOfStat" setState={setMood} actionText="Play Mahjong"/>
+                                  jsonKey= "mood" setState={setMood} actionText="Play Mahjong"/>
             </Grid>
         </Grid>
         //*</Grid>*/
