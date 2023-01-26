@@ -3,7 +3,7 @@ import {Container, Grid} from "@mui/material";
 import Box from '@mui/material/Box';
 import Stats from "../components/Stats.jsx";
 import StatActionButton from "../components/StatActionButton.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 // function myGrid() {
 //     return (
@@ -19,6 +19,34 @@ import {useState} from "react";
 // }
 
 function GrannyPage() {
+    const temporaryId = 0;
+
+    const [health, setHealth] = useState(null);
+    const [mood, setMood] = useState(null);
+    const [environment, setEnvironment] = useState(null);
+
+    const [initialDataController] = useState(new AbortController());
+
+    useEffect(() => {
+        async function fetchAllData() {
+            // the backend will retrieve the id from the session - not the frontend
+            // but in this version here we're sending the id
+            const grannyData = await fetch(`http://localhost:8080/granny/visit-granny/${temporaryId}`,
+                {signal: initialDataController.signal}).then(res => res.json());
+            return grannyData;
+        }
+
+        async function setInitialStats() {
+            const data = await fetchAllData();
+            setHealth(data.health.stringValueOfStat);
+            setMood(data.mood.stringValueOfStat);
+            setEnvironment(data.environment.stringValueOfStat);
+        }
+
+        setInitialStats();
+
+    }, []);
+
 
     return (
         // <Grid item xs="true">
@@ -53,23 +81,26 @@ function GrannyPage() {
             </Grid>
 
             <Grid item xs={4}>
-                <p></p>
+                <p>{environment}</p>
             </Grid>
             <Grid item xs={4}>
-                <p></p>
+                <p>{health}</p>
             </Grid>
             <Grid item xs={4}>
-                <p></p>
+                <p>{mood}</p>
             </Grid>
 
             <Grid item xs={4}>
-                <StatActionButton/>
+                <StatActionButton apiLink={`http://localhost:8080/granny/clean-house/${temporaryId}`}
+                                  jsonKey= "environment.stringValueOfStat" setState={setEnvironment} actionText="Clean House"/>
             </Grid>
             <Grid item xs={4}>
-                <StatActionButton/>
+                <StatActionButton apiLink={`http://localhost:8080/granny/feed-pie/${temporaryId}`}
+                                  jsonKey= "health.stringValueOfStat" setState={setHealth} actionText="Feed Pie"/>
             </Grid>
             <Grid item xs={4}>
-                <StatActionButton/>
+                <StatActionButton apiLink={`http://localhost:8080/granny/play-mahjong/${temporaryId}`}
+                                  jsonKey= "mood.stringValueOfStat" setState={setMood} actionText="Play Mahjong"/>
             </Grid>
         </Grid>
         //*</Grid>*/
