@@ -30,25 +30,29 @@ public class GrannyController {
         grannyService.createGranny(userId, name);
     }
 
-    @GetMapping("/visit-granny")
-    public ResponseEntity<Granny> visitGranny(@RequestBody GrannyGetRequest request) {
-        Granny granny = grannyService.visitGranny(request.getUserId());
+    @GetMapping("/visit-granny/{id}")
+    public ResponseEntity<Granny> visitGranny(@PathVariable int id) {
+        Granny granny = grannyService.visitGranny(id);
         return ResponseEntity.ok().body(granny);
     }
 
-    @GetMapping("/feed-pie")
-    public void feedPie(@RequestBody GrannyGetRequest request) {
-        grannyService.feedPie(request.getUserId());
+//    TODO: should change these to PUT/PATCH requests
+//    TODO: review -> changed from RequestBody to PathVariable - frontend couldn't send a response body with get request,
+//    TODO: the backend should retrieve the id from session
+
+    @GetMapping("/feed-pie/{id}")
+    public void feedPie(@PathVariable int id) {
+        grannyService.feedPie(id);
     }
 
-    @GetMapping("/play-mahjong")
-    public void playMahjong(@RequestBody GrannyGetRequest request) {
-        grannyService.playMahjong(request.getUserId());
+    @GetMapping("/play-mahjong/{id}")
+    public void playMahjong(@PathVariable int id) {
+        grannyService.playMahjong(id);
     }
 
-    @GetMapping("/clean-house")
-    public void cleanHouse(@RequestBody GrannyGetRequest request) {
-        grannyService.cleanHouse(request.getUserId());
+    @GetMapping("/clean-house/{id}")
+    public void cleanHouse(@PathVariable int id) {
+        grannyService.cleanHouse(id);
     }
 
 
