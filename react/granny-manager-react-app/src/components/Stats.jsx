@@ -16,6 +16,8 @@ function Stats(props) {
             const grannyData = await fetch(`http://localhost:8080/granny/visit-granny/${temporaryId}`,
                 {signal: initialDataController.signal}).then(res => res.json());
             console.log(grannyData);
+            // TODO: separate fetch and set part of the method
+            //
             setHealth(grannyData.health.stringValueOfStat);
             setMood(grannyData.mood.stringValueOfStat);
             setEnvironment(grannyData.environment.stringValueOfStat);
@@ -24,6 +26,8 @@ function Stats(props) {
 
         return () => initialDataController.abort();
     }, []);
+
+    // TODO: one reusable component for action buttons - useEffect - on click state change
 
     useEffect(() => {
         async function feedPie() {
