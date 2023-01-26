@@ -32,7 +32,7 @@ function GrannyPage() {
                     backgroundRepeat: `no-repeat`,
                     backgroundSize: `100%`,
                     height: "60vh",
-                    width: "100vw",
+                    width: "80vw",
                     marginLeft: "5vw",
                 }}
             >
