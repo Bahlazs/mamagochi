@@ -42,18 +42,22 @@ public class GrannyController {
 //    TODO: the backend should retrieve the id from session
 
     @GetMapping("/feed-pie/{id}")
-    public void feedPie(@PathVariable int id) {
-        grannyService.feedPie(id);
+    public ResponseEntity<Integer> feedPie(@PathVariable int id) {
+        Granny granny = grannyService.feedPie(id);
+        return ResponseEntity.ok().body(granny.getHealth().getStat());
     }
 
     @GetMapping("/play-mahjong/{id}")
-    public void playMahjong(@PathVariable int id) {
-        grannyService.playMahjong(id);
+    public ResponseEntity<Integer> playMahjong(@PathVariable int id) {
+        Granny granny = grannyService.playMahjong(id);
+        System.out.println(ResponseEntity.ok().body(granny.getMood().getStat()));
+        return ResponseEntity.ok().body(granny.getMood().getStat());
     }
 
     @GetMapping("/clean-house/{id}")
-    public void cleanHouse(@PathVariable int id) {
-        grannyService.cleanHouse(id);
+    public ResponseEntity<Integer> cleanHouse(@PathVariable int id) {
+        Granny granny = grannyService.cleanHouse(id);
+        return ResponseEntity.ok().body(granny.getEnvironment().getStat());
     }
 
 
