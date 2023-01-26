@@ -3,30 +3,32 @@ import {useEffect, useState} from "react";
 function Stats(props) {
     const temporaryId = 0;
 
-    const [health, setHealth] = useState(0);
-    const [mood, setMood] = useState(0);
-    const [environment, setEnvironment] = useState(0);
+    const [health, setHealth] = useState(null);
+    const [mood, setMood] = useState(null);
+    const [environment, setEnvironment] = useState(null);
+
+    const [initialDataController] = useState(new AbortController());
+
     useEffect(() => {
         async function fetchAllData() {
             // the backend will retrieve the id from the session? - not the frontend
             // but in this version here we're sending the id
-            const grannyData = await fetch(`http://localhost:8080/granny/visit-granny/${temporaryId}`).then(res => res.json());
+            const grannyData = await fetch(`http://localhost:8080/granny/visit-granny/${temporaryId}`,
+                {signal: initialDataController.signal}).then(res => res.json());
             console.log(grannyData);
             setHealth(grannyData.health.stringValueOfStat);
             setMood(grannyData.mood.stringValueOfStat);
             setEnvironment(grannyData.environment.stringValueOfStat);
         }
-
         fetchAllData();
 
-        //     I'm not sure if we require a cleanup effect here?
+        return () => initialDataController.abort();
     }, []);
 
     useEffect(() => {
         async function feedPie() {
             // We should send the update here to the backend - that the state updated
             const grannyData = await fetch(`http://localhost:8080/granny/feed-pie/${temporaryId}`);
-            console.log(grannyData);
         }
         feedPie();
     }, [health])
@@ -35,7 +37,6 @@ function Stats(props) {
         async function playMahjong() {
             // We should send the update here to the backend - that the state updated
             const grannyData = await fetch(`http://localhost:8080/granny/play-mahjong/${temporaryId}`);
-            console.log(grannyData);
         }
         playMahjong();
     }, [mood])
@@ -44,7 +45,6 @@ function Stats(props) {
         async function cleanHouse() {
             // We should send the update here to the backend - that the state updated
             const grannyData = await fetch(`http://localhost:8080/granny/clean-house/${temporaryId}`);
-            console.log(grannyData);
         }
         cleanHouse();
     }, [environment])
@@ -85,6 +85,7 @@ function Stats(props) {
 export default Stats;
 
 
-// TODO: 1. store the states in the frontend -> then it will send a number or something to the backend
-// TODO: because then it will change before it gets stored in the backend
+// TODO: 1. store the states in the frontend -> increase them when possible with setState -> send a PUT request with the state value in the RequestBody
+// TODO: representation will change right away
+// TODO: OR on button click, not change frontend - send PUT request with empty RequestBody - manually trigger rerender - and fetch the data again that shows the updated values
 // TODO: 2. change all the activities to PUT request instead of GET request
