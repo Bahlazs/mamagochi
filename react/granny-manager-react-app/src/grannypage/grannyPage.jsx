@@ -38,9 +38,9 @@ function GrannyPage() {
 
         async function setInitialStats() {
             const data = await fetchAllData();
-            setHealth(data.health.stringValueOfStat);
-            setMood(data.mood.stringValueOfStat);
-            setEnvironment(data.environment.stringValueOfStat);
+            setHealth(data.health.stat);
+            setMood(data.mood.stat);
+            setEnvironment(data.environment.stat);
         }
 
         setInitialStats();
