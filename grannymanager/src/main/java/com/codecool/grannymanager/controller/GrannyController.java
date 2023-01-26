@@ -2,7 +2,6 @@ package com.codecool.grannymanager.controller;
 
 
 import com.codecool.grannymanager.model.Granny;
-import com.codecool.grannymanager.model.grannyproperties.Stat;
 import com.codecool.grannymanager.model.requestmodel.GrannyCreateRequest;
 import com.codecool.grannymanager.model.requestmodel.GrannyGetRequest;
 import com.codecool.grannymanager.service.GrannyService;
@@ -10,15 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.codecool.grannymanager.service.GrannyService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/granny")
 public class GrannyController {
     private final GrannyService grannyService;
@@ -35,25 +31,33 @@ public class GrannyController {
         grannyService.createGranny(userId, name);
     }
 
-    @GetMapping("/visit-granny")
-    public ResponseEntity<Granny> visitGranny(@RequestBody GrannyGetRequest request) {
-        Granny granny = grannyService.visitGranny(request.getUserId());
+    @GetMapping("/visit-granny/{id}")
+    public ResponseEntity<Granny> visitGranny(@PathVariable int id) {
+        Granny granny = grannyService.visitGranny(id);
         return ResponseEntity.ok().body(granny);
     }
 
-    @GetMapping("/feed-pie")
-    public void feedPie(@RequestBody GrannyGetRequest request) {
-        grannyService.feedPie(request.getUserId());
+//    TODO: should change these to PUT/PATCH requests
+//    TODO: review -> changed from RequestBody to PathVariable - frontend couldn't send a response body with get request,
+//    TODO: the backend should retrieve the id from session
+
+    @GetMapping("/feed-pie/{id}")
+    public ResponseEntity<Integer> feedPie(@PathVariable int id) {
+        Granny granny = grannyService.feedPie(id);
+        return ResponseEntity.ok().body(granny.getHealth().getStat());
     }
 
-    @GetMapping("/play-mahjong")
-    public void playMahjong(@RequestBody GrannyGetRequest request) {
-        grannyService.playMahjong(request.getUserId());
+    @GetMapping("/play-mahjong/{id}")
+    public ResponseEntity<Integer> playMahjong(@PathVariable int id) {
+        Granny granny = grannyService.playMahjong(id);
+        System.out.println(ResponseEntity.ok().body(granny.getMood().getStat()));
+        return ResponseEntity.ok().body(granny.getMood().getStat());
     }
 
-    @GetMapping("/clean-house")
-    public void cleanHouse(@RequestBody GrannyGetRequest request) {
-        grannyService.cleanHouse(request.getUserId());
+    @GetMapping("/clean-house/{id}")
+    public ResponseEntity<Integer> cleanHouse(@PathVariable int id) {
+        Granny granny = grannyService.cleanHouse(id);
+        return ResponseEntity.ok().body(granny.getEnvironment().getStat());
     }
 
 
