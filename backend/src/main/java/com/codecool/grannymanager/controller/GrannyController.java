@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/granny")
 public class GrannyController {
     private final GrannyService grannyService;

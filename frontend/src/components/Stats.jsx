@@ -13,7 +13,7 @@ function Stats(props) {
         async function fetchAllData() {
             // the backend will retrieve the id from the session? - not the frontend
             // but in this version here we're sending the id
-            const grannyData = await fetch(`http://localhost:8080/granny/visit-granny/${temporaryId}`,
+            const grannyData = await fetch(`/granny/visit-granny/${temporaryId}`,
                 {signal: initialDataController.signal}).then(res => res.json());
             console.log(grannyData);
             // TODO: separate fetch and set part of the method
@@ -32,7 +32,7 @@ function Stats(props) {
     useEffect(() => {
         async function feedPie() {
             // We should send the update here to the backend - that the state updated
-            const grannyData = await fetch(`http://localhost:8080/granny/feed-pie/${temporaryId}`);
+            const grannyData = await fetch(`/granny/feed-pie/${temporaryId}`);
         }
         feedPie();
     }, [health])
@@ -40,7 +40,7 @@ function Stats(props) {
     useEffect(() => {
         async function playMahjong() {
             // We should send the update here to the backend - that the state updated
-            const grannyData = await fetch(`http://localhost:8080/granny/play-mahjong/${temporaryId}`);
+            const grannyData = await fetch(`/granny/play-mahjong/${temporaryId}`);
         }
         playMahjong();
     }, [mood])
@@ -48,7 +48,7 @@ function Stats(props) {
     useEffect(() => {
         async function cleanHouse() {
             // We should send the update here to the backend - that the state updated
-            const grannyData = await fetch(`http://localhost:8080/granny/clean-house/${temporaryId}`);
+            const grannyData = await fetch(`/granny/clean-house/${temporaryId}`);
         }
         cleanHouse();
     }, [environment])

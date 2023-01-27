@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {ReactSession} from 'react-client-session';
 import {useState} from "react";
 import {useEffect} from "react";
 

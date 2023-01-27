@@ -33,7 +33,7 @@ function App() {
     }, []);
 
     const createGranny = async () => {
-         const res = await fetch(`http://localhost:8080/granny/create-granny`, {
+         const res = await fetch(`/granny/create-granny`, {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({userId: 1, name: 'Mariska'})

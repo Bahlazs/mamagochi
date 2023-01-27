@@ -35,7 +35,7 @@ function GrannyPage({grannyCreated}) {
     async function fetchAllData() {
       // the backend will retrieve the id from the session - not the frontend
       // but in this version here we're sending the id
-      const grannyData = await fetch(`http://localhost:8080/granny/visit-granny/${temporaryId}`,
+      const grannyData = await fetch(`/granny/visit-granny/${temporaryId}`,
           {signal: initialDataController.signal}).then(res => res.json());
       return grannyData;
     }
@@ -83,15 +83,15 @@ function GrannyPage({grannyCreated}) {
         </Grid>
 
         <Grid className='btn-grid' item xs={4}>
-          <StatActionButton apiLink={`http://localhost:8080/granny/clean-house/${temporaryId}`}
+          <StatActionButton apiLink={`/granny/clean-house/${temporaryId}`}
                             jsonKey="environment" setState={setEnvironment} actionText="Clean House"/>
         </Grid>
         <Grid className='btn-grid' item xs={4}>
-          <StatActionButton apiLink={`http://localhost:8080/granny/feed-pie/${temporaryId}`}
+          <StatActionButton apiLink={`/granny/feed-pie/${temporaryId}`}
                             jsonKey="health" setState={setHealth} actionText="Feed Pie"/>
         </Grid>
         <Grid className='btn-grid' item xs={4}>
-          <StatActionButton apiLink={`http://localhost:8080/granny/play-mahjong/${temporaryId}`}
+          <StatActionButton apiLink={`/granny/play-mahjong/${temporaryId}`}
                             jsonKey="mood" setState={setMood} actionText="Play Mahjong"/>
         </Grid>
       </Grid>
