@@ -1,15 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&family=Roboto:wght@500&family=Special+Elite&family=Ubuntu&family=Unbounded:wght@300&display=swap%27');
 
-body {
+body{
     font-family: 'Unbounded', cursive;
 }
 
-h2 {
+.card-head {
     font-size: 300%;
     padding: 3% 3% 0%;
 }
 
-p {
+.card-text {
     font-size: 150%;
     padding: 4%;
 }

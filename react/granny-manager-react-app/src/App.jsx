@@ -1,7 +1,7 @@
 import './App.css'
 import GrannyPage from "./grannypage/grannyPage.jsx";
 import NavBar from './components/NavBar.jsx'
-import {createBrowserRouter, Route, RouterProvider, Routes} from "react-router-dom";
+import {BrowserRouter as Router,createBrowserRouter, RouterProvider, Routes, Route} from "react-router-dom";
 import LandingPage from "./components/LandingPage.jsx";
 
 import {useEffect, useState} from "react";
@@ -45,9 +45,13 @@ function App() {
 
   return (
     <div className="App">
+      <Router>
       <NavBar userName = {userName} logoutBob={logoutBob} loginBob={loginBob} />
-        <RouterProvider router={route}/>
-
+        <Routes>
+            <Route path="/" element={<LandingPage userName={userName}/>}/>
+            <Route path="/visit-granny" element={<GrannyPage grannyCreated={grannyCreated}/>}/>
+        </Routes>
+      </Router>
 
         {/*<Routes>*/}
         {/*    <Route path="/" exact component={LandingPage}/>*/}

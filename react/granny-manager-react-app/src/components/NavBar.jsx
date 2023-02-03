@@ -1,5 +1,6 @@
 import * as React from 'react';
 import UserComponent from "./UserComponent.jsx";
+import {Link} from "react-router-dom";
 
 function NavBar({userName, logoutBob, loginBob}) {
 
@@ -10,6 +11,9 @@ function NavBar({userName, logoutBob, loginBob}) {
     return (
         <div className={"nav-bar"}>
             <div>
+                <Link to="/">
+                    <button className="nav-bar-button" id="home">Home</button>
+                </Link>
                 <button onClick={()=>{
                     handleClick("#about-us")
                 }} className="nav-bar-button" id={"about"}>About</button>
