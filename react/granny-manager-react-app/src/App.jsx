@@ -5,6 +5,7 @@ import {BrowserRouter as Router,createBrowserRouter, RouterProvider, Routes, Rou
 import LandingPage from "./components/LandingPage.jsx";
 
 import {useEffect, useState} from "react";
+import {Footer} from "./components/Footer";
 
 
 function App() {
@@ -52,7 +53,7 @@ function App() {
             <Route path="/visit-granny" element={<GrannyPage grannyCreated={grannyCreated}/>}/>
         </Routes>
       </Router>
-
+      <Footer/>
         {/*<Routes>*/}
         {/*    <Route path="/" exact component={LandingPage}/>*/}
         {/*    <Route path="/visit-granny"  component={GrannyPage}/>*/}
