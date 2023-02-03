@@ -5,19 +5,13 @@ import {BrowserRouter as Router,createBrowserRouter, RouterProvider, Routes, Rou
 import LandingPage from "./components/LandingPage.jsx";
 
 import {useEffect, useState} from "react";
+import {Footer} from "./components/Footer";
 
 
 function App() {
 
     const [userName, setUserName] = useState(undefined);
     const [grannyCreated, setGrannyCreated] = useState(false)
-    const route = createBrowserRouter([{
-        path: "/",
-        element: <LandingPage userName={userName}/>
-    }, {
-        path: "/visit-granny",
-        element: <GrannyPage grannyCreated={grannyCreated}/>
-    }])
 
     function logoutBob() {
         setUserName(undefined)
@@ -52,21 +46,10 @@ function App() {
             <Route path="/visit-granny" element={<GrannyPage grannyCreated={grannyCreated}/>}/>
         </Routes>
       </Router>
-
-        {/*<Routes>*/}
-        {/*    <Route path="/" exact component={LandingPage}/>*/}
-        {/*    <Route path="/visit-granny"  component={GrannyPage}/>*/}
-        {/*</Routes>*/}
-
+      <Footer/>
     </div>
   )
 
-    // return (
-    //     <div className="App">
-    //         {/*<NavBar userName={userName} loginBob={loginBob} logoutBob={logoutBob}/>*/}
-    //         <GrannyPage grannyCreated={grannyCreated}/>
-    //     </div>
-    // )
 }
 
 export default App
