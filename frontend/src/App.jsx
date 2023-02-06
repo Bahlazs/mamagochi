@@ -1,23 +1,17 @@
 import './App.css'
 import GrannyPage from "./grannypage/grannyPage.jsx";
 import NavBar from './components/NavBar.jsx'
-import {createBrowserRouter, Route, RouterProvider, Routes} from "react-router-dom";
+import {BrowserRouter as Router,createBrowserRouter, RouterProvider, Routes, Route} from "react-router-dom";
 import LandingPage from "./components/LandingPage.jsx";
 
 import {useEffect, useState} from "react";
+import {Footer} from "./components/Footer";
 
 
 function App() {
 
     const [userName, setUserName] = useState(undefined);
     const [grannyCreated, setGrannyCreated] = useState(false)
-    const route = createBrowserRouter([{
-        path: "/",
-        element: <LandingPage userName={userName}/>
-    }, {
-        path: "/visit-granny",
-        element: <GrannyPage grannyCreated={grannyCreated}/>
-    }])
 
     function logoutBob() {
         setUserName(undefined)
@@ -45,24 +39,17 @@ function App() {
 
   return (
     <div className="App">
+      <Router>
       <NavBar userName = {userName} logoutBob={logoutBob} loginBob={loginBob} />
-        <RouterProvider router={route}/>
-
-
-        {/*<Routes>*/}
-        {/*    <Route path="/" exact component={LandingPage}/>*/}
-        {/*    <Route path="/visit-granny"  component={GrannyPage}/>*/}
-        {/*</Routes>*/}
-
+        <Routes>
+            <Route path="/" element={<LandingPage userName={userName}/>}/>
+            <Route path="/visit-granny" element={<GrannyPage grannyCreated={grannyCreated}/>}/>
+        </Routes>
+      </Router>
+      <Footer/>
     </div>
   )
 
-    // return (
-    //     <div className="App">
-    //         {/*<NavBar userName={userName} loginBob={loginBob} logoutBob={logoutBob}/>*/}
-    //         <GrannyPage grannyCreated={grannyCreated}/>
-    //     </div>
-    // )
 }
 
 export default App
