@@ -38,20 +38,6 @@ public class GrannyService {
         return granny;
     }
 
-//    private void checkOnGranny(Granny granny) {
-//        decrementGrannyStatByNotVisitedDays(granny);
-//        shouldGrannyRetire(granny);
-//    }
-
-//    private void decrementGrannyStatByNotVisitedDays(Granny granny) {
-//        LocalDateTime lastVisit = granny.getLastVisit();
-//        int daysSinceLastVisit = extractDaysSinceLastVisit(lastVisit);
-//
-//        while (daysSinceLastVisit > 0) {
-//            daysSinceLastVisit--;
-//            decrementRandomStat(granny);
-//        }
-//    }
 
     private int extractDaysSinceLastVisit(LocalDateTime lastVisit) {
         int hoursSinceLastVisit = extractHoursSinceLastVisit(lastVisit);
@@ -62,54 +48,6 @@ public class GrannyService {
         return (int) ChronoUnit.HOURS.between(lastVisit, LocalDateTime.now());
     }
 
-//    private void decrementRandomStat(Granny granny) {
-//        int randomNum = (int) ((Math.random() * (3 - 1)) + 1);
-//        switch (randomNum) {
-//            case 1 -> decrementHealthStat(granny);
-//            case 2 -> decrementEnvironmentStat(granny);
-//            case 3 -> decrementMoodStat(granny);
-//        }
-//    }
-
-//    private void decrementHealthStat(Granny granny) {
-//        granny.getHealth().decrementStat();
-//    }
-//
-//    private void decrementMoodStat(Granny granny) {
-//        granny.getMood().decrementStat();
-//    }
-//
-//    private void decrementEnvironmentStat(Granny granny) {
-//        granny.getEnvironment().decrementStat();
-//    }
-//
-//    private void shouldGrannyRetire(Granny granny) {
-//        if (checkGrannyStatsIfLowest(granny)) {
-//            granny.setRetired(true);
-//        }
-//    }
-//
-//    private boolean checkGrannyStatsIfLowest(Granny granny) {
-//        return granny.getMood().getStat() == 0 && granny.getHealth().getStat() == 0 && granny.getEnvironment().getStat() == 0;
-//    }
-//
-//    public Granny feedPie(int id) {
-//        Granny granny = grannyRepository.findGrannyById(id);
-//        granny.getHealth().incrementStat();
-//        return granny;
-//    }
-//
-//    public Granny playMahjong(int id) {
-//        Granny granny = grannyRepository.findGrannyById(id);
-//        granny.getMood().incrementStat();
-//        return granny;
-//    }
-//
-//    public Granny cleanHouse(int id) {
-//        Granny granny = grannyRepository.findGrannyById(id);
-//        granny.getEnvironment().incrementStat();
-//        return granny;
-//    }
 
     public void jumpOneDay(long id) {
         Granny granny = grannyRepository.findGrannyById(id);

@@ -6,7 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class GrannyCreateRequest {
-    private Long userId;
     private String name;
 
 
