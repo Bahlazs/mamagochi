@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 @Entity
 @NoArgsConstructor
 @Getter
@@ -29,7 +33,6 @@ public class Granny {
     private  int environmentStat;
     private  int healthStat;
     private  int moodStat;
-
     private boolean retired;
 
     public Granny(User user, String name) {

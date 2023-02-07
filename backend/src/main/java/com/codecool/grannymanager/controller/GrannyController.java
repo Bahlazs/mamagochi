@@ -10,6 +10,7 @@ import com.codecool.grannymanager.service.GrannyService;
 import com.codecool.grannymanager.service.SessionService;
 import com.codecool.grannymanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +39,6 @@ public class GrannyController {
     @PostMapping("/create-granny")
     public void createGranny(@RequestBody GrannyCreateRequest request) {
         User user = userService.getUserById(sessionService.get("userId"));
-
         registerGrannyForUser(user, request.getName());
         userService.updateUser(user);
     }
@@ -49,14 +49,32 @@ public class GrannyController {
         user.setGranny(granny);
     }
 
-    @GetMapping("/visit-granny/{id}")
-    public Granny visitGranny(@PathVariable long id) {
-        return grannyService.visitGranny(id);
+    @GetMapping("/visit-granny/")
+    public Granny visitGranny() {
+        User user = userService.getUserById(sessionService.get("userId"));
+        return grannyService.visitGranny(user.getGranny().getId());
     }
 
-//    TODO: should change these to PUT/PATCH requests
-//    TODO: review -> changed from RequestBody to PathVariable - frontend couldn't send a response body with get request,
-//    TODO: the backend should retrieve the id from session
+    @PutMapping ("/feed-granny")
+    public ResponseEntity<String> feedGranny() {
+        User user = userService.getUserById(sessionService.get("userId"));
+        grannyService.feedGranny(user.getGranny());
+        return ResponseEntity.ok().body("granny got fatter");
+    }
+
+    @PutMapping ("/clean-house")
+    public ResponseEntity<String> cleanGrannyHouse() {
+        User user = userService.getUserById(sessionService.get("userId"));
+        grannyService.cleanHouse(user.getGranny());
+        return ResponseEntity.ok().body("House got cleaner");
+    }
+
+    @PutMapping ("/play-mahjong")
+    public ResponseEntity<String> playMahjong() {
+        User user = userService.getUserById(sessionService.get("userId"));
+        grannyService.playMahjongWithGranny(user.getGranny());
+        return ResponseEntity.ok().body("granny got happier");
+    }
 
 
 
