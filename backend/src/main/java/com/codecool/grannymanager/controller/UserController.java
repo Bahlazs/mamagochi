@@ -2,6 +2,7 @@ package com.codecool.grannymanager.controller;
 
 import com.codecool.grannymanager.model.User;
 import com.codecool.grannymanager.model.requestmodel.LoginRequest;
+import com.codecool.grannymanager.service.SessionService;
 import com.codecool.grannymanager.service.UserService;
 
 
@@ -12,10 +13,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class UserController {
 
+    private final SessionService sessionService;
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(SessionService sessionService, UserService userService) {
+        this.sessionService = sessionService;
         this.userService = userService;
     }
 
@@ -27,14 +30,21 @@ public class UserController {
 
     @PostMapping("/login")
     @ResponseBody
-    public void login(@RequestBody LoginRequest request){
-        User user = userService.login(request);
+    public void login(@RequestBody LoginRequest loginRequest){
+        User user = userService.login(loginRequest);
+        if(user != null){
+            sessionService.put("userId", user.getId());
+        }
+    }
 
-
+    @GetMapping("/logout")
+    public void logout(){
+        sessionService.logout();
     }
 
     @GetMapping("/me")
-    public void checkMe(){
+    public Long checkMe(){
+        return sessionService.get("userId");
 
     }
 }

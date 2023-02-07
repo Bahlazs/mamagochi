@@ -45,6 +45,7 @@ public class GrannyController {
         grannyService.registerGranny(granny);
         user.setGranny(granny);
     }
+
     @GetMapping("/visit-granny/{id}")
     public Granny visitGranny(@PathVariable long id) {
         return grannyService.visitGranny(id);

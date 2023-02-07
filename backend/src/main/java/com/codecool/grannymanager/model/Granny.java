@@ -39,6 +39,7 @@ public class Granny {
         this.healthStat = 3;
         this.moodStat = 3;
         this.retired = false;
+        this.lastVisit = LocalDateTime.now();
     }
 
     public String toString(){
