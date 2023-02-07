@@ -38,7 +38,6 @@ public class GrannyController {
     @PostMapping("/create-granny")
     public void createGranny(@RequestBody GrannyCreateRequest request) {
         User user = userService.getUserById(sessionService.get("userId"));
-
         registerGrannyForUser(user, request.getName());
         userService.updateUser(user);
     }
@@ -49,14 +48,10 @@ public class GrannyController {
         user.setGranny(granny);
     }
 
-    @GetMapping("/visit-granny/{id}")
-    public Granny visitGranny(@PathVariable long id) {
-        return grannyService.visitGranny(id);
+    @GetMapping("/visit-granny")
+    public Granny visitGranny() {
+        return grannyService.visitGranny(sessionService.get("userId"));
     }
-
-//    TODO: should change these to PUT/PATCH requests
-//    TODO: review -> changed from RequestBody to PathVariable - frontend couldn't send a response body with get request,
-//    TODO: the backend should retrieve the id from session
 
 
 
