@@ -6,7 +6,10 @@ import com.codecool.grannymanager.service.SessionService;
 import com.codecool.grannymanager.service.UserService;
 
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -30,11 +33,13 @@ public class UserController {
 
     @PostMapping("/login")
     @ResponseBody
-    public void login(@RequestBody LoginRequest loginRequest){
+    public void login(@RequestBody LoginRequest loginRequest, Model model){
         User user = userService.login(loginRequest);
         if(user != null){
             sessionService.put("userId", user.getId());
+            sessionService.put("grannyId",user.getGranny().getId());
         }
+
     }
 
     @GetMapping("/logout")
@@ -42,9 +47,4 @@ public class UserController {
         sessionService.logout();
     }
 
-    @GetMapping("/me")
-    public Long checkMe(){
-        return sessionService.get("userId");
-
-    }
 }
