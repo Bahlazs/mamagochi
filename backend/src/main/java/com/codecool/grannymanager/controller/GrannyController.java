@@ -2,9 +2,12 @@ package com.codecool.grannymanager.controller;
 
 
 import com.codecool.grannymanager.model.Granny;
+import com.codecool.grannymanager.model.User;
 import com.codecool.grannymanager.model.requestmodel.GrannyCreateRequest;
 import com.codecool.grannymanager.model.requestmodel.GrannyGetRequest;
+import com.codecool.grannymanager.repository.UserRepository;
 import com.codecool.grannymanager.service.GrannyService;
+import com.codecool.grannymanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,46 +21,39 @@ import org.springframework.web.bind.annotation.RestController;
 public class GrannyController {
     private final GrannyService grannyService;
 
+    private final UserService userService;
+    private final UserRepository userRepository;
+
     @Autowired
-    public GrannyController(GrannyService grannyService) {
+    public GrannyController(GrannyService grannyService, UserService userService,
+                            UserRepository userRepository) {
         this.grannyService = grannyService;
+        this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     @PostMapping("/create-granny")
     public void createGranny(@RequestBody GrannyCreateRequest request) {
-        int userId = request.getUserId();
-        String name = request.getName();
-        grannyService.createGranny(userId, name);
+        User user = userService.getUserById(request.getUserId());
+
+        registerGrannyForUser(user, request.getName());
+        userService.updateUser(user);
     }
 
+    private void registerGrannyForUser(User user, String nameOfGranny){
+        Granny granny = new Granny(user, nameOfGranny);
+        grannyService.registerGranny(granny);
+        user.setGranny(granny);
+    }
     @GetMapping("/visit-granny/{id}")
-    public ResponseEntity<Granny> visitGranny(@PathVariable int id) {
-        Granny granny = grannyService.visitGranny(id);
-        return ResponseEntity.ok().body(granny);
+    public Granny visitGranny(@PathVariable long id) {
+        return grannyService.visitGranny(id);
     }
 
 //    TODO: should change these to PUT/PATCH requests
 //    TODO: review -> changed from RequestBody to PathVariable - frontend couldn't send a response body with get request,
 //    TODO: the backend should retrieve the id from session
 
-    @GetMapping("/feed-pie/{id}")
-    public ResponseEntity<Integer> feedPie(@PathVariable int id) {
-        Granny granny = grannyService.feedPie(id);
-        return ResponseEntity.ok().body(granny.getHealth().getStat());
-    }
-
-    @GetMapping("/play-mahjong/{id}")
-    public ResponseEntity<Integer> playMahjong(@PathVariable int id) {
-        Granny granny = grannyService.playMahjong(id);
-        System.out.println(ResponseEntity.ok().body(granny.getMood().getStat()));
-        return ResponseEntity.ok().body(granny.getMood().getStat());
-    }
-
-    @GetMapping("/clean-house/{id}")
-    public ResponseEntity<Integer> cleanHouse(@PathVariable int id) {
-        Granny granny = grannyService.cleanHouse(id);
-        return ResponseEntity.ok().body(granny.getEnvironment().getStat());
-    }
 
 
     @GetMapping("/spend-one-day")

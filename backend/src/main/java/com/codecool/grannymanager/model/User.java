@@ -1,41 +1,36 @@
 package com.codecool.grannymanager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Entity(name = "app_user")
+@NoArgsConstructor
 @Getter
-//@Setter
-//@Entitty
+@Setter
 public class User {
-
-//    @Id
-    private final int id;
-    private final String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "USER_ID", nullable = false)
+    private Long id;
+    @OneToOne
+    @JoinColumn(name = "GRANNY_ID",referencedColumnName = "GRANNY_ID")
+    @JsonIgnore
+    private Granny granny;
+    private  String name;
     private String password;
     private String email;
 
-    public User(int id, String name, String password, String email) {
-        this.id = id;
+    public User( String name, String password, String email) {
         this.name = name;
         this.password = password;
         this.email = email;
     }
 
-
-//    remove all of this
-    public void setEmail(String email) {
-        this.email = email;
+    public String toString(){
+        return String.format("Name: %s, id: %d", name, id);
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public boolean isId(int id) {
-        return this.id == id;
-    }
-
-    public boolean isEmail(String email) {
-        return this.email.equals(email);
-    }
 }

@@ -5,9 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class GrannyCreateRequest {
-    private Long userId;
-    private String name;
+public class LoginRequest {
 
+    private String email;
 
+    private String password;
 }
