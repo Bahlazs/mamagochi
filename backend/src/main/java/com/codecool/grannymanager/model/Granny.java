@@ -5,6 +5,7 @@ import com.codecool.grannymanager.model.enumgrannyproperties.Health;
 import com.codecool.grannymanager.model.enumgrannyproperties.Mood;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +19,7 @@ import java.util.Map;
 @NoArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
 public class Granny {
 
 
@@ -52,6 +54,7 @@ public class Granny {
     }
 
     public String toString(){
-        return String.format("Name: %s , id: %d, userId: %d", name, id, user.getId());
+//        return String.format("Name: %s , id: %d, userId: %d", name, id, user.getId());
+        return String.format("env: %s health: %s mood: %s retired: %s",environmentStat,healthStat,moodStat, retired);
     }
 }
