@@ -52,7 +52,8 @@ public class GrannyController {
     @GetMapping("/visit-granny/")
     public Granny visitGranny() {
         User user = userService.getUserById(sessionService.get("userId"));
-        return grannyService.visitGranny(user.getGranny().getId());
+        grannyService.visitGranny(user.getGranny());
+        return user.getGranny();
     }
 
     @PutMapping ("/feed-granny")

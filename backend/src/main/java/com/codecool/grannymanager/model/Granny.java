@@ -1,5 +1,8 @@
 package com.codecool.grannymanager.model;
 
+import com.codecool.grannymanager.model.enumgrannyproperties.Environment;
+import com.codecool.grannymanager.model.enumgrannyproperties.Health;
+import com.codecool.grannymanager.model.enumgrannyproperties.Mood;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -30,17 +33,17 @@ public class Granny {
     private String name;
     private LocalDateTime lastVisit;
 
-    private  int environmentStat;
-    private  int healthStat;
-    private  int moodStat;
+    private Environment environmentStat;
+    private Health healthStat;
+    private Mood moodStat;
     private boolean retired;
 
     public Granny(User user, String name) {
         this.user = user;
         this.name = name;
-        this.environmentStat = 3;
-        this.healthStat = 3;
-        this.moodStat = 3;
+        this.environmentStat = Environment.TIDY;
+        this.healthStat = Health.HEALTHY;
+        this.moodStat = Mood.HAPPY;
         this.retired = false;
         this.lastVisit = LocalDateTime.now();
     }
