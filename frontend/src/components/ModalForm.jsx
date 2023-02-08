@@ -28,8 +28,8 @@ export const ModalForm = ({ onFormSubmit }) => {
         <div>
             <button onClick={handleOpen}>Open Modal</button>
             {open && (
-                // Outer div is fixed position, taking up the entire viewable area of the page to cover the entire screen
-                // The background property is 'rgba(0, 0, 0, 0.5)', to create a black overlay behind the modal
+                // Outer div is fixed position, taking up the entire viewport
+                // The background is 'rgba(0, 0, 0, 0.5)' for a black overlay
 
                 // The inner div has an absolute position, top and left properties are set to 50% to center the modal
                 // The transform 'translate(-50%, -50%)' adjusts the position of the inner div
@@ -70,4 +70,4 @@ export const ModalForm = ({ onFormSubmit }) => {
         </div>
     );
 
-};
+}

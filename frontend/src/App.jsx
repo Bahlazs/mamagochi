@@ -25,7 +25,7 @@ function App() {
     }, [formData]);
 
     const registerUser = async () => {
-        const res = await fetch(`/register`, {
+        const res = await fetch(`/user/register`, {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({
