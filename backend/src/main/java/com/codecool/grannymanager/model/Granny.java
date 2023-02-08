@@ -33,8 +33,11 @@ public class Granny {
     private String name;
     private LocalDateTime lastVisit;
 
+    @Enumerated(EnumType.STRING)
     private Environment environmentStat;
+    @Enumerated(EnumType.STRING)
     private Health healthStat;
+    @Enumerated(EnumType.STRING)
     private Mood moodStat;
     private boolean retired;
 
