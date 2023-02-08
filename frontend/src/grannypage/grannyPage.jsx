@@ -6,6 +6,11 @@ import Stats from "../components/Stats.jsx";
 import StatActionButton from "../components/StatActionButton.jsx";
 import StatBar from "../components/StatBar.jsx";
 import {useEffect, useState} from "react";
+// import ProgressBar from "../components/ProgressBar.jsx";
+import LinearProgress from '@mui/material/LinearProgress';
+import {Progress} from '@chakra-ui/react'
+import {createTheme, ThemeProvider} from '@mui/material/styles';
+import {purple} from '@mui/material/colors';
 
 
 function GrannyPage({grannyCreated}) {
@@ -63,6 +68,24 @@ function GrannyPage({grannyCreated}) {
     }
   }
 
+  const theme = createTheme({
+    palette: {
+      primary: {
+        // Purple and green play nicely together.
+        main: greenStat,
+      },
+    },
+  });
+
+  const theme2 = createTheme({
+    palette: {
+      primary: {
+        // Purple and green play nicely together.
+        main: redStat,
+      },
+    },
+  });
+
   return (
 
       <Grid container spacing={2} className='container'>
@@ -72,14 +95,24 @@ function GrannyPage({grannyCreated}) {
 
         </Grid>
 
-        <Grid item xs={4}>
-          <StatBar text='Environment' color={envColor}/>
+        <Grid className="stat-grid" item xs={4}>
+          {/*<StatBar text='Environment' color={envColor}/>*/
+            /*<LinearProgress text='Environment' color={envColor}/>*/}
         </Grid>
-        <Grid item xs={4}>
-          <StatBar text='Health' color={healthColor}/>
+        <Grid className="stat-grid" item xs={4}>
+          {/*<StatBar text='Health' color={healthColor}/>*/
+            /*<LinearProgress text='Health' color={healthColor}/>*/}
         </Grid>
-        <Grid item xs={4}>
-          <StatBar text='Mood' color={moodColor}/>
+        <Grid className="stat-grid" item xs={4}>
+          <ThemeProvider theme={theme}>
+            <div className="stat-grid">
+              {/*<div className="progress-text">text</div>*/}
+              <span id="pg-bar-text">Mood</span>
+              <LinearProgress variant="determinate" value={33} color: primary
+                              sx={{width: 8 / 10, height: 30, borderRadius: 1}}/>
+            </div>
+
+          </ThemeProvider>
         </Grid>
 
         <Grid className='btn-grid' item xs={4}>
