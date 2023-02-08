@@ -37,7 +37,7 @@ public class UserController {
         User user = userService.login(loginRequest);
         if(user != null){
             sessionService.put("userId", user.getId());
-            sessionService.put("grannyId",user.getGranny().getId());
+            if(user.getGranny() != null){sessionService.put("grannyId",user.getGranny().getId());}
         }
 
     }

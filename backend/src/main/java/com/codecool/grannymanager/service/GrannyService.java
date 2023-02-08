@@ -26,6 +26,7 @@ public class GrannyService {
     @Autowired
     public GrannyService(GrannyRepository grannyRepository) {
         this.grannyRepository = grannyRepository;
+        initializeConsumerList();
     }
 
     public void registerGranny(Granny granny){
@@ -41,6 +42,7 @@ public class GrannyService {
 
     private void checkOnGranny(Granny granny) {
         int daysPastSinceLastVisit = extractDaysSinceLastVisit(granny.getLastVisit());
+        System.out.println(daysPastSinceLastVisit);
         for (int i = 0; i < daysPastSinceLastVisit; i++) {
             decreaseRandomStat(granny);
         }
@@ -69,16 +71,16 @@ public class GrannyService {
 
 
 
-    public void jumpOneDay(long id) {
-        Granny granny = grannyRepository.findGrannyById(id);
+    public void jumpOneDay(Granny granny) {
         LocalDateTime lastVisit = granny.getLastVisit();
         granny.setLastVisit(lastVisit.minusDays(1));
+        grannyRepository.save(granny);
 
     }
-    public void jumpOneWeek(long id) {
-        Granny granny = grannyRepository.findGrannyById(id);
+    public void jumpOneWeek(Granny granny) {
         LocalDateTime lastVisit = granny.getLastVisit();
         granny.setLastVisit(lastVisit.minusDays(7));
+        grannyRepository.save(granny);
 
     }
 
@@ -91,6 +93,7 @@ public class GrannyService {
 
     private void decreaseRandomStat(Granny granny) {
         Consumer<Granny> randomEvent = events.get(getRandomStatIndex());
+
         randomEvent.accept(granny);
     }
 

@@ -1,6 +1,6 @@
 package com.codecool.grannymanager.model.requestmodel;
 
-public class GrannyGetRequest {
+public class    GrannyGetRequest {
 
     private int userId;
 

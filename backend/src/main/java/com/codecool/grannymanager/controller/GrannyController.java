@@ -41,6 +41,7 @@ public class GrannyController {
         User user = userService.getUserById(sessionService.get("userId"));
         registerGrannyForUser(user, request.getName());
         userService.updateUser(user);
+        sessionService.put("grannyId",user.getGranny().getId());
     }
 
     private void registerGrannyForUser(User user, String nameOfGranny){
@@ -49,28 +50,28 @@ public class GrannyController {
         user.setGranny(granny);
     }
 
-    @GetMapping("/visit-granny/")
+    @GetMapping("/visit-granny")
     public Granny visitGranny() {
         User user = userService.getUserById(sessionService.get("userId"));
         grannyService.visitGranny(user.getGranny());
         return user.getGranny();
     }
 
-    @PutMapping ("/feed-granny")
+    @GetMapping ("/feed-granny")
     public ResponseEntity<String> feedGranny() {
         User user = userService.getUserById(sessionService.get("userId"));
         grannyService.feedGranny(user.getGranny());
         return ResponseEntity.ok().body("granny got fatter");
     }
 
-    @PutMapping ("/clean-house")
+    @GetMapping ("/clean-house")
     public ResponseEntity<String> cleanGrannyHouse() {
         User user = userService.getUserById(sessionService.get("userId"));
         grannyService.cleanHouse(user.getGranny());
         return ResponseEntity.ok().body("House got cleaner");
     }
 
-    @PutMapping ("/play-mahjong")
+    @GetMapping ("/play-mahjong")
     public ResponseEntity<String> playMahjong() {
         User user = userService.getUserById(sessionService.get("userId"));
         grannyService.playMahjongWithGranny(user.getGranny());
@@ -78,15 +79,16 @@ public class GrannyController {
     }
 
 
-
     @GetMapping("/spend-one-day")
-    public void spendOneDay(@RequestBody GrannyGetRequest request) {
-        grannyService.jumpOneDay(request.getUserId());
+    public void spendOneDay() {
+        User user = userService.getUserById(sessionService.get("userId"));
+        grannyService.jumpOneDay(user.getGranny());
     }
 
     @GetMapping("/spend-one-week")
-    public void spendOneWeek(@RequestBody GrannyGetRequest request) {
-        grannyService.jumpOneWeek(request.getUserId());
+    public void spendOneWeek() {
+        User user = userService.getUserById(sessionService.get("userId"));
+        grannyService.jumpOneWeek(user.getGranny());
     }
 
 }
