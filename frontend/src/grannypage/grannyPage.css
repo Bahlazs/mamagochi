@@ -47,7 +47,7 @@ body {
     display: block;
     width: 80%;
     background: #625185;
-    color: #fff;
+    color: #ded8b6;
     border: none;
     padding: 10px 20px;
     margin: 5px;
@@ -86,6 +86,6 @@ body {
     position: absolute;
     align-self: center;
     font-family: inherit;
-    color: white;
+    color: #ded8b6;
     z-index: 1;
 }

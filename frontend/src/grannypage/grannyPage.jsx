@@ -83,7 +83,7 @@ function GrannyPage({grannyCreated}) {
   return (
 
       <Grid container spacing={2} className='container'>
-        <Grid item xs={12}>MAMAGOTCHI</Grid>
+        {/*<Grid item xs={12}>MAMAGOTCHI</Grid>*/}
         <Grid className='granny-room' item xs={12}>
           <img id="granny-in-room" src={wholeGranny}/>
 
