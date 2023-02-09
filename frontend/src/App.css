@@ -2,6 +2,7 @@
 
 body{
     font-family: 'Unbounded', cursive;
+    background-color: #ded8b6;
 }
 
 .card-head {
@@ -72,20 +73,38 @@ body{
     margin: auto;
     width: 80%;
     border: none;
-    background-color: #BF6330;
-    border-radius: 3%;
+    background-color: #625185;
+    border-radius: 5px;
+    color: #ded8b6;
 }
 
 #image-container {
-   display: flex;
-    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
     width: 80%;
-    right: 10%;
-    padding: 8%;
+    border: none;
+    background-color: #625185;
+    border-radius: 5px;
+    color: #ded8b6;
 }
 
-#massage {
+#content {
+    margin-left: 50px;
+    margin-top: 0;
+}
+
+#landing-page-image {
+    margin-bottom: 20px;
+}
+
+#welcome-div {
+    position: absolute;
     display: inline-block;
-    top: 20%;
+    top: 50%;
     font-size: 200%;
+    align-self: center;
+    font-family: inherit;
+    color: inherit;
+    z-index: 1;
 }

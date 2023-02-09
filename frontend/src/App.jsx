@@ -6,6 +6,7 @@ import LandingPage from "./components/LandingPage.jsx";
 
 import {useEffect, useState} from "react";
 import {Footer} from "./components/Footer";
+import ResponsiveAppBar from "./components/AppBar.jsx";
 
 
 function App() {
@@ -40,7 +41,8 @@ function App() {
   return (
     <div className="App">
       <Router>
-      <NavBar userName = {userName} logoutBob={logoutBob} loginBob={loginBob} />
+      {/*<NavBar userName = {userName} logoutBob={logoutBob} loginBob={loginBob} />*/}
+        <ResponsiveAppBar/>
         <Routes>
             <Route path="/" element={<LandingPage userName={userName}/>}/>
             <Route path="/visit-granny" element={<GrannyPage grannyCreated={grannyCreated}/>}/>
