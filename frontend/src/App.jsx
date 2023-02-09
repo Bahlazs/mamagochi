@@ -1,6 +1,4 @@
 import './App.css'
-import {useEffect, useState} from "react";
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import GrannyPage from "./grannypage/grannyPage.jsx";
 import NavBar from './components/NavBar.jsx'
 import {BrowserRouter as Router,createBrowserRouter, RouterProvider, Routes, Route} from "react-router-dom";
