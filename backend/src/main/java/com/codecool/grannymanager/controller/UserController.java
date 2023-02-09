@@ -6,7 +6,6 @@ import com.codecool.grannymanager.service.SessionService;
 import com.codecool.grannymanager.service.UserService;
 
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -28,19 +27,19 @@ public class UserController {
     @PostMapping("/register")
     @ResponseBody
     public ResponseEntity<Void> register(@RequestBody User user) {
-        userService.registerUser(user);
-        return ResponseEntity.ok().build();
+        return userService.registerUser(user);
     }
 
     @PostMapping("/login")
     @ResponseBody
-    public void login(@RequestBody LoginRequest loginRequest, Model model){
+    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest, Model model){
         User user = userService.login(loginRequest);
         if(user != null){
             sessionService.put("userId", user.getId());
             if(user.getGranny() != null){sessionService.put("grannyId",user.getGranny().getId());}
+            return ResponseEntity.ok().build();
         }
-
+        return ResponseEntity.status(400).build();
     }
 
     @GetMapping("/logout")

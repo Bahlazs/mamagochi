@@ -4,6 +4,7 @@ import com.codecool.grannymanager.model.User;
 import com.codecool.grannymanager.model.requestmodel.LoginRequest;
 import com.codecool.grannymanager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,8 +17,14 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public void registerUser(User user) {
-        userRepository.save(user);
+    public ResponseEntity<Void> registerUser(User user) {
+        try{
+            userRepository.save(user);
+            return ResponseEntity.ok().build();
+        }catch (Error e){
+            return ResponseEntity.status(400).build();
+        }
+
     }
 
     public User getUserById(Long id){

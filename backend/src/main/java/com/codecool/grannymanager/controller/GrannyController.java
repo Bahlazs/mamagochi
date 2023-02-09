@@ -37,11 +37,24 @@ public class GrannyController {
     }
 
     @PostMapping("/create-granny")
-    public void createGranny(@RequestBody GrannyCreateRequest request) {
-        User user = userService.getUserById(sessionService.get("userId"));
-        registerGrannyForUser(user, request.getName());
-        userService.updateUser(user);
-        sessionService.put("grannyId",user.getGranny().getId());
+    public ResponseEntity<Void> createGranny(@RequestBody GrannyCreateRequest request) {
+        ResponseEntity<Void> response;
+
+        if(request.getName() != null){
+            User user = userService.getUserById(sessionService.get("userId"));
+            if(user != null){
+                registerGrannyForUser(user, request.getName());
+                userService.updateUser(user);
+                sessionService.put("grannyId",user.getGranny().getId());
+                response = ResponseEntity.ok().build();
+            } else {
+                response = ResponseEntity.status(400).build();
+            }
+        } else {
+            response = ResponseEntity.status(400).build();
+        }
+
+       return response;
     }
 
     private void registerGrannyForUser(User user, String nameOfGranny){
@@ -51,10 +64,18 @@ public class GrannyController {
     }
 
     @GetMapping("/visit-granny")
-    public Granny visitGranny() {
+    public ResponseEntity<Granny> visitGranny() {
+        ResponseEntity<Granny> response;
         User user = userService.getUserById(sessionService.get("userId"));
         grannyService.visitGranny(user.getGranny());
-        return user.getGranny();
+
+        if(user.getGranny() != null){
+            response = ResponseEntity.ok().body(user.getGranny());
+        }else {
+            response = ResponseEntity.status(400).body(null);
+        }
+
+        return response;
     }
 
     @GetMapping ("/feed-granny")

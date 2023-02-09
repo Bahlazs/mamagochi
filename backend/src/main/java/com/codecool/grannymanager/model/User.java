@@ -19,8 +19,10 @@ public class User {
     @JoinColumn(name = "GRANNY_ID",referencedColumnName = "GRANNY_ID")
     @JsonIgnore
     private Granny granny;
+    @Column(unique = true)
     private  String name;
     private String password;
+    @Column(unique = true)
     private String email;
 
     public User( String name, String password, String email) {
