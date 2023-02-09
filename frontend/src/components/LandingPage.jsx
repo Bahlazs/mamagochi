@@ -9,11 +9,11 @@ function LandingPage({userName}) {
                 <div id="image-container">
                   <div id="content">
                     <img src={image} alt="grannypic" id="landing-page-image"/>
-                  <div id="welcome-div">
-                    <span> Welcome to our page! </span>
-                    <br/>
-                    <span> Create and take care of your Granny.</span>
-                  </div>
+                    <div id="welcome-div">
+                      Welcome to our page!
+                      <br/>
+                      Create and take care of your Granny.
+                    </div>
                   </div>
                 </div>
                 <div className="text-card" id="features">
