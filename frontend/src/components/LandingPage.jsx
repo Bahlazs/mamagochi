@@ -14,14 +14,16 @@ function LandingPage({userName}) {
                     </div>
                   </div>
                 </div>
-                <div className="text-card" id="features">
+              <span id="features"></span>
+                <div className="text-card">
                     <h2 className="card-head">Features</h2>
                     <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
                         Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                 </div>
-                <div className="text-card" id="about-us">
+              <span id="about-us"></span>
+                <div className="text-card">
                     <h2 className="card-head">About us</h2>
                     <p className="card-text">Ultrices mi tempus imperdiet nulla malesuada pellentesque. Tincidunt praesent semper feugiat nibh sed pulvinar proin gravida. Aliquet enim tortor at auctor urna nunc id. Elit at imperdiet dui accumsan sit amet nulla facilisi morbi. Purus in mollis nunc sed id semper risus. Orci porta non pulvinar neque laoreet suspendisse interdum. Sed id semper risus in hendrerit gravida. Nunc vel risus commodo viverra maecenas accumsan lacus vel. Dictumst quisque sagittis purus sit amet volutpat. Nulla pellentesque dignissim enim sit amet venenatis urna cursus. Molestie a iaculis at erat pellentesque adipiscing commodo elit. Auctor augue mauris augue neque gravida in fermentum et. Diam ut venenatis tellus in. Ante metus dictum at tempor commodo. Ac auctor augue mauris augue neque gravida.
 
