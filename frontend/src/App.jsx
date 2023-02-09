@@ -35,6 +35,8 @@ function App() {
         });
         if (res.status === 200) {
             alert('User registered');
+            await login();
+            await createGranny()
         } else {
             alert('Something went wrong');
         }
@@ -64,6 +66,8 @@ function App() {
         })
         if (res.status !== 200) {
             alert('Something went wrong');
+        }else {
+            window.location.replace("http://localhost:5173/visit-granny")
         }
     }
 
@@ -74,7 +78,7 @@ function App() {
             } else {
                 alert('Your granny is missing');
                 const timeout = setTimeout(() => {
-                    window.location.replace('http://localhost:5174');
+                    window.location.replace('http://localhost:5173');
                 }, 3000);
                 return () => clearTimeout(timeout);
             }

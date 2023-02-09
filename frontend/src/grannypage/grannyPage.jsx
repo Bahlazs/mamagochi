@@ -31,14 +31,17 @@ function GrannyPage({visitGranny}) {
 
     async function setInitialStats() {
         const data = await visitGranny();
-        setHealth(data.health.stat);
-        setMood(data.mood.stat);
-        setEnvironment(data.environment.stat);
+        console.log(data)
+        console.log(data.healthStat.statValue)
+        //TODO figure out how to show granny stat
+        setHealth(data.healthStat.statValue);
+        setMood(data.moodStat.statValue);
+        setEnvironment(data.environmentStat.statValue);
     }
 
     useEffect(() => {
         setInitialStats();
-    });
+    },[]);
 
     useEffect(setBarColors, [mood, health, environment])
 
