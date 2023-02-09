@@ -3,6 +3,9 @@ package com.codecool.grannymanager.controller;
 
 import com.codecool.grannymanager.model.Granny;
 import com.codecool.grannymanager.model.User;
+import com.codecool.grannymanager.model.enumgrannyproperties.Environment;
+import com.codecool.grannymanager.model.enumgrannyproperties.Health;
+import com.codecool.grannymanager.model.enumgrannyproperties.Mood;
 import com.codecool.grannymanager.model.requestmodel.GrannyCreateRequest;
 import com.codecool.grannymanager.model.requestmodel.GrannyGetRequest;
 import com.codecool.grannymanager.repository.UserRepository;
@@ -79,24 +82,24 @@ public class GrannyController {
     }
 
     @GetMapping ("/feed-granny")
-    public ResponseEntity<String> feedGranny() {
+    public ResponseEntity<Health> feedGranny() {
         User user = userService.getUserById(sessionService.get("userId"));
         grannyService.feedGranny(user.getGranny());
-        return ResponseEntity.ok().body("granny got fatter");
+        return ResponseEntity.ok().body(user.getGranny().getHealthStat());
     }
 
     @GetMapping ("/clean-house")
-    public ResponseEntity<String> cleanGrannyHouse() {
+    public ResponseEntity<Environment> cleanGrannyHouse() {
         User user = userService.getUserById(sessionService.get("userId"));
         grannyService.cleanHouse(user.getGranny());
-        return ResponseEntity.ok().body("House got cleaner");
+        return ResponseEntity.ok().body(user.getGranny().getEnvironmentStat());
     }
 
     @GetMapping ("/play-mahjong")
-    public ResponseEntity<String> playMahjong() {
+    public ResponseEntity<Mood> playMahjong() {
         User user = userService.getUserById(sessionService.get("userId"));
         grannyService.playMahjongWithGranny(user.getGranny());
-        return ResponseEntity.ok().body("granny got happier");
+        return ResponseEntity.ok().body(user.getGranny().getMoodStat());
     }
 
 

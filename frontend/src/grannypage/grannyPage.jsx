@@ -132,7 +132,7 @@ function GrannyPage({visitGranny}) {
                             jsonKey="environment" setState={setEnvironment} actionText="Clean House"/>
         </Grid>
         <Grid className='btn-grid' item xs={4}>
-          <StatActionButton apiLink={`/granny/feed-pie`}
+          <StatActionButton apiLink={`/granny/feed-granny`}
                             jsonKey="health" setState={setHealth} actionText="Feed Pie"/>
         </Grid>
         <Grid className='btn-grid' item xs={4}>
