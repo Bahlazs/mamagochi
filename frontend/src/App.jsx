@@ -11,7 +11,6 @@ import {ModalForm} from "./components/ModalForm";
 function App() {
 
     const [userName, setUserName] = useState(undefined);
-    const [grannyCreated, setGrannyCreated] = useState(false);
     const [formData, setFormData] = useState(null);
 
     const handleFormSubmit = data => setFormData(data);
@@ -34,19 +33,50 @@ function App() {
                 password: formData.password})
         })
         if (res.status === 200) {
-            setUserName(formData.username);
+            alert('User registered');
+        } else {
+            alert('Something went wrong');
         }
     }
 
-    const createGranny = async (grannyName) => {
+    const login = async () => {
+        const res = await fetch(`/user/login`, {
+            method: 'POST',
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({
+                email: formData.email,
+                password: formData.password})
+        })
+        if (res.status === 200) {
+            setUserName(formData.username);
+        } else {
+            alert('Login was not successful');
+        }
+    }
+
+    const createGranny = async () => {
          const res = await fetch(`/granny/create-granny`, {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
-            body: JSON.stringify({userId: 1, name: grannyName})
+            body: JSON.stringify({name: formData.grannyName})
         })
-        if (res.status === 200) {
-          setGrannyCreated(true);
+        if (res.status !== 200) {
+            alert('Something went wrong');
         }
+    }
+
+    async function visitGranny() {
+        return await fetch(`/granny/visit-granny`).then((res) => {
+            if (res.status === 200) {
+                return res.json()
+            } else {
+                alert('Your granny is missing');
+                const timeout = setTimeout(() => {
+                    window.location.replace('http://localhost:5173');
+                }, 3000);
+                return () => clearTimeout(timeout);
+            }
+        });
     }
 
     function logoutBob() {
@@ -65,7 +95,7 @@ function App() {
         <ModalForm onFormSubmit={handleFormSubmit} />
         <Routes>
             <Route path="/" element={<LandingPage userName={userName}/>} />
-            <Route path="/visit-granny" element={<GrannyPage grannyCreated={grannyCreated}/>} />
+            <Route path="/visit-granny" element={<GrannyPage visitGranny={visitGranny}/>} />
         </Routes>
       </Router>
       <Footer/>

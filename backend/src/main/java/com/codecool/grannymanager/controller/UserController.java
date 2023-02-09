@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -27,12 +28,13 @@ public class UserController {
     @PostMapping("/register")
     @ResponseBody
     public ResponseEntity<Void> register(@RequestBody User user) {
-        return userService.registerUser(user);
+        userService.registerUser(user);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/login")
     @ResponseBody
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest, Model model){
+    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest){
         User user = userService.login(loginRequest);
         if(user != null){
             sessionService.put("userId", user.getId());
