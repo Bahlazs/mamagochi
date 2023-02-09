@@ -11,23 +11,23 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import {useState} from "react";
 import {createTheme, ThemeProvider} from '@mui/material/styles';
+import {Link} from "react-router-dom";
 
 const pages = ['Features', 'About'];
-const settings = ['Visit Granny', 'Logout'];
+const userPages = ['Visit Granny', 'Logout'];
+const noUserPages = ['Create Granny', 'Login'];
 
 const theme = createTheme({
   palette: {
     primary: {
-      // Purple and green play nicely together.
       main: '#BF6330',
     },
   },
 });
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar({ userName }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -101,7 +101,7 @@ function ResponsiveAppBar() {
               >
                 {pages.map((page) => (
                     <MenuItem key={page} onClick={handleCloseNavMenu}>
-                      <Typography textAlign="center" sx={{color: '#ded8b6'}}>{page}</Typography>
+                      <Typography textAlign="center" sx={{color: 'black', fontFamily: 'inherit'}}>{page}</Typography>
                     </MenuItem>
                 ))}
               </Menu>
@@ -159,11 +159,23 @@ function ResponsiveAppBar() {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                      <Typography textAlign="center">{setting}</Typography>
-                    </MenuItem>
-                ))}
+                {userName?
+                    <>
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center" sx={{fontFamily: 'inherit'}}>{userPages[0]}</Typography>
+                  </MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center" sx={{fontFamily: 'inherit'}}>{userPages[1]}</Typography>
+                </MenuItem> </>
+                    :
+                    <>
+                  <MenuItem onClick={handleCloseUserMenu} component={Link} to="/visit-granny">
+                  <Typography textAlign="center" sx={{fontFamily: 'inherit'}}>{noUserPages[0]}</Typography>
+                  </MenuItem>
+                  <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center" sx={{fontFamily: 'inherit'}}>{noUserPages[1]}</Typography>
+                  </MenuItem> </>
+                }
               </Menu>
             </Box>
           </Toolbar>
