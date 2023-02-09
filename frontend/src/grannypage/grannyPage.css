@@ -24,18 +24,18 @@ body {
     object-fit: contain;
 }
 
-.stat-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /*background-color: #83ab7c;*/
-    color: white;
-    height: 50px;
-    /*outline: 1px ridge #83ab7c;*/
-    border-radius: 1rem;
-    box-sizing: border-box;
+/*.stat-bar {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    !*background-color: #83ab7c;*!*/
+/*    color: white;*/
+/*    height: 50px;*/
+/*    !*outline: 1px ridge #83ab7c;*!*/
+/*    border-radius: 1rem;*/
+/*    box-sizing: border-box;*/
 
-}
+/*}*/
 
 .btn-grid {
     display: flex;
@@ -47,7 +47,7 @@ body {
     display: block;
     width: 80%;
     background: #625185;
-    color: #fff;
+    color: #ded8b6;
     border: none;
     padding: 10px 20px;
     margin: 5px;
@@ -64,4 +64,28 @@ body {
 
 .action-btn:active {
     transform: scale(0.98);
+}
+
+.stat-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.progress-text {
+    float: inside;
+}
+
+#ize {
+    border-radius: 5px;
+}
+
+#pg-bar-text {
+    position: absolute;
+    align-self: center;
+    font-family: inherit;
+    color: #ded8b6;
+    z-index: 1;
 }

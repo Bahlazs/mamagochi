@@ -1,9 +1,12 @@
 import './App.css'
-import {useEffect, useState} from "react";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import GrannyPage from "./grannypage/grannyPage.jsx";
 import NavBar from './components/NavBar.jsx'
 import LandingPage from "./components/LandingPage.jsx";
+
+import {useEffect, useState} from "react";
+import {Footer} from "./components/Footer";
+import ResponsiveAppBar from "./components/AppBar.jsx";
 import {Footer} from "./components/Footer.jsx";
 import {ModalForm} from "./components/ModalForm";
 
@@ -90,19 +93,20 @@ function App() {
         setUserName(undefined);
     }
 
-    return (
-        <div className="App">
-            <Router>
-                <NavBar userName={userName} logout={logout} login={login}/>
-                <ModalForm onFormSubmit={handleFormSubmit}/>
-                <Routes>
-                    <Route path="/" element={<LandingPage userName={userName}/>}/>
-                    <Route path="/visit-granny" element={<GrannyPage visitGranny={visitGranny}/>}/>
-                </Routes>
-            </Router>
-            <Footer/>
-        </div>
-    )
+  return (
+    <div className="App">
+      <Router>
+      {/*<NavBar userName = {userName} logoutBob={logoutBob} loginBob={loginBob} />*/}
+        <ResponsiveAppBar/>
+        <ModalForm onFormSubmit={handleFormSubmit}/>
+        <Routes>
+            <Route path="/" element={<LandingPage userName={userName}/>}/>
+            <Route path="/visit-granny" element={<GrannyPage grannyCreated={grannyCreated}/>}/>
+        </Routes>
+      </Router>
+      <Footer/>
+    </div>
+  )
 
 }
 
