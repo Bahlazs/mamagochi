@@ -1,16 +1,10 @@
 import './grannyPage.css'
 import wholeGranny from '../assets/whole_granny_nobackground.png'
 import {Container, Grid} from "@mui/material";
-import Box from '@mui/material/Box';
-import Stats from "../components/Stats.jsx";
 import StatActionButton from "../components/StatActionButton.jsx";
-import StatBar from "../components/StatBar.jsx";
 import {useEffect, useState} from "react";
-// import ProgressBar from "../components/ProgressBar.jsx";
 import LinearProgress from '@mui/material/LinearProgress';
-import {Progress} from '@chakra-ui/react'
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {purple} from '@mui/material/colors';
 
 
 function GrannyPage({grannyCreated}) {
@@ -96,22 +90,30 @@ function GrannyPage({grannyCreated}) {
         </Grid>
 
         <Grid className="stat-grid" item xs={4}>
-          {/*<StatBar text='Environment' color={envColor}/>*/
-            /*<LinearProgress text='Environment' color={envColor}/>*/}
-        </Grid>
-        <Grid className="stat-grid" item xs={4}>
-          {/*<StatBar text='Health' color={healthColor}/>*/
-            /*<LinearProgress text='Health' color={healthColor}/>*/}
-        </Grid>
-        <Grid className="stat-grid" item xs={4}>
-          <ThemeProvider theme={theme}>
+          <ThemeProvider theme={theme2}>
             <div className="stat-grid">
-              {/*<div className="progress-text">text</div>*/}
-              <span id="pg-bar-text">Mood</span>
-              <LinearProgress variant="determinate" value={33} color: primary
+              <span id="pg-bar-text">Environment</span>
+              <LinearProgress variant="determinate" value={66} color: primary="true"
                               sx={{width: 8 / 10, height: 30, borderRadius: 1}}/>
             </div>
-
+          </ThemeProvider>
+        </Grid>
+        <Grid className="stat-grid" item xs={4}>
+          <ThemeProvider theme={theme2}>
+            <div className="stat-grid">
+              <span id="pg-bar-text">Health</span>
+              <LinearProgress variant="determinate" value={66} color: primary="true"
+                              sx={{width: 8 / 10, height: 30, borderRadius: 1}}/>
+            </div>
+          </ThemeProvider>
+        </Grid>
+        <Grid className="stat-grid" item xs={4}>
+          <ThemeProvider theme={theme2}>
+            <div className="stat-grid">
+              <span id="pg-bar-text">Mood</span>
+              <LinearProgress variant="determinate" value={66} color: primary="true"
+                              sx={{width: 8 / 10, height: 30, borderRadius: 1}}/>
+            </div>
           </ThemeProvider>
         </Grid>
 
