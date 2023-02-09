@@ -1,9 +1,12 @@
 import './grannyPage.css'
 import wholeGranny from '../assets/whole_granny_nobackground.png'
-import {Grid} from "@mui/material";
+import {Container, Grid} from "@mui/material";
+import Box from '@mui/material/Box';
+import Stats from "../components/Stats.jsx";
 import StatActionButton from "../components/StatActionButton.jsx";
-import StatBar from "../components/StatBar.jsx";
 import {useEffect, useState} from "react";
+import LinearProgress from '@mui/material/LinearProgress';
+import {createTheme, ThemeProvider} from '@mui/material/styles';
 
 
 function GrannyPage({visitGranny}) {
@@ -55,7 +58,25 @@ function GrannyPage({visitGranny}) {
         }
     }
 
-    return (
+  const theme = createTheme({
+    palette: {
+      primary: {
+        // Purple and green play nicely together.
+        main: greenStat,
+      },
+    },
+  });
+
+  const theme2 = createTheme({
+    palette: {
+      primary: {
+        // Purple and green play nicely together.
+        main: redStat,
+      },
+    },
+  });
+
+  return (
 
         <Grid container spacing={2} className='container'>
             <Grid item xs={12}>MAMAGOTCHI</Grid>
@@ -64,15 +85,33 @@ function GrannyPage({visitGranny}) {
 
             </Grid>
 
-            <Grid item xs={4}>
-                <StatBar text='Environment' color={envColor}/>
-            </Grid>
-            <Grid item xs={4}>
-                <StatBar text='Health' color={healthColor}/>
-            </Grid>
-            <Grid item xs={4}>
-                <StatBar text='Mood' color={moodColor}/>
-            </Grid>
+        <Grid className="stat-grid" item xs={4}>
+          <ThemeProvider theme={theme2}>
+            <div className="stat-grid">
+              <span id="pg-bar-text">Environment</span>
+              <LinearProgress variant="determinate" value={66} color: primary="true"
+                              sx={{width: 8 / 10, height: 30, borderRadius: 1}}/>
+            </div>
+          </ThemeProvider>
+        </Grid>
+        <Grid className="stat-grid" item xs={4}>
+          <ThemeProvider theme={theme2}>
+            <div className="stat-grid">
+              <span id="pg-bar-text">Health</span>
+              <LinearProgress variant="determinate" value={66} color: primary="true"
+                              sx={{width: 8 / 10, height: 30, borderRadius: 1}}/>
+            </div>
+          </ThemeProvider>
+        </Grid>
+        <Grid className="stat-grid" item xs={4}>
+          <ThemeProvider theme={theme2}>
+            <div className="stat-grid">
+              <span id="pg-bar-text">Mood</span>
+              <LinearProgress variant="determinate" value={66} color: primary="true"
+                              sx={{width: 8 / 10, height: 30, borderRadius: 1}}/>
+            </div>
+          </ThemeProvider>
+        </Grid>
 
             <Grid className='btn-grid' item xs={4}>
                 <StatActionButton apiLink={`/granny/clean-house/${temporaryId}`}

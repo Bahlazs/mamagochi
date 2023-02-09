@@ -3,7 +3,12 @@ import {useEffect, useState} from "react";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import GrannyPage from "./grannypage/grannyPage.jsx";
 import NavBar from './components/NavBar.jsx'
+import {BrowserRouter as Router,createBrowserRouter, RouterProvider, Routes, Route} from "react-router-dom";
 import LandingPage from "./components/LandingPage.jsx";
+
+import {useEffect, useState} from "react";
+import {Footer} from "./components/Footer";
+import ResponsiveAppBar from "./components/AppBar.jsx";
 import {Footer} from "./components/Footer.jsx";
 import {ModalForm} from "./components/ModalForm";
 
@@ -89,6 +94,7 @@ function App() {
         const res = await fetch(`/user/logout`);
         setUserName(undefined);
     }
+
 
     return (
         <div className="App">
