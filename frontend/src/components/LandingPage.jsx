@@ -1,11 +1,9 @@
-import VisitGrannyButton from "./VisitGrannyButton.jsx";
 import image from "../assets/whole_granny_nobackground.png"
 
 function LandingPage({userName}) {
 
         return(
             <div>
-              {userName && <VisitGrannyButton/>}
                 <div id="image-container">
                   <div id="content">
                     <img src={image} alt="grannypic" id="landing-page-image"/>

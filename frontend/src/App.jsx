@@ -1,11 +1,8 @@
 import './App.css'
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import GrannyPage from "./grannypage/grannyPage.jsx";
-import NavBar from './components/NavBar.jsx'
 import LandingPage from "./components/LandingPage.jsx";
-
 import {useEffect, useState} from "react";
-import {Footer} from "./components/Footer";
 import ResponsiveAppBar from "./components/AppBar.jsx";
 import {Footer} from "./components/Footer.jsx";
 import {ModalForm} from "./components/ModalForm";
@@ -15,15 +12,13 @@ function App() {
 
     const [userName, setUserName] = useState(undefined);
     const [formData, setFormData] = useState(null);
+    const [open, setOpen] = useState(false);
 
     const handleFormSubmit = data => setFormData(data);
 
     useEffect(() => {
-        // just to test formData
-        console.log(formData);
-
         if (!formData) return;
-        registerUser().then(r => console.log(r));
+        registerUser();
     }, [formData]);
 
     const registerUser = async () => {
@@ -37,9 +32,10 @@ function App() {
             })
         });
         if (res.status === 200) {
+            console.error('regUser ok')
             alert('User registered');
             await login();
-            await createGranny()
+            await createGranny();
         } else {
             alert('Something went wrong');
         }
@@ -69,8 +65,9 @@ function App() {
         })
         if (res.status !== 200) {
             alert('Something went wrong');
-        }else {
-            window.location.replace("http://localhost:5173/visit-granny")
+        }
+        else {
+            return true;
         }
     }
 
@@ -97,11 +94,11 @@ function App() {
     <div className="App">
       <Router>
       {/*<NavBar userName = {userName} logoutBob={logoutBob} loginBob={loginBob} />*/}
-        <ResponsiveAppBar/>
-        <ModalForm onFormSubmit={handleFormSubmit}/>
+        <ResponsiveAppBar userName={userName} setOpen={setOpen} logout={logout}/>
+        <ModalForm onFormSubmit={handleFormSubmit} open={open} setOpen={setOpen}/>
         <Routes>
             <Route path="/" element={<LandingPage userName={userName}/>}/>
-            <Route path="/visit-granny" element={<GrannyPage grannyCreated={grannyCreated}/>}/>
+            <Route path="/visit-granny" element={<GrannyPage visitGranny={visitGranny}/>}/>
         </Routes>
       </Router>
       <Footer/>
