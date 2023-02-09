@@ -2,9 +2,13 @@ package com.codecool.grannymanager.controller;
 
 
 import com.codecool.grannymanager.model.Granny;
+import com.codecool.grannymanager.model.User;
 import com.codecool.grannymanager.model.requestmodel.GrannyCreateRequest;
 import com.codecool.grannymanager.model.requestmodel.GrannyGetRequest;
+import com.codecool.grannymanager.repository.UserRepository;
 import com.codecool.grannymanager.service.GrannyService;
+import com.codecool.grannymanager.service.SessionService;
+import com.codecool.grannymanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,56 +22,73 @@ import org.springframework.web.bind.annotation.RestController;
 public class GrannyController {
     private final GrannyService grannyService;
 
+    private final SessionService sessionService;
+
+    private final UserService userService;
+    private final UserRepository userRepository;
+
     @Autowired
-    public GrannyController(GrannyService grannyService) {
+    public GrannyController(GrannyService grannyService, SessionService sessionService, UserService userService,
+                            UserRepository userRepository) {
         this.grannyService = grannyService;
+        this.sessionService = sessionService;
+        this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     @PostMapping("/create-granny")
     public void createGranny(@RequestBody GrannyCreateRequest request) {
-        int userId = request.getUserId();
-        String name = request.getName();
-        grannyService.createGranny(userId, name);
+        User user = userService.getUserById(sessionService.get("userId"));
+        registerGrannyForUser(user, request.getName());
+        userService.updateUser(user);
+        sessionService.put("grannyId",user.getGranny().getId());
     }
 
-    @GetMapping("/visit-granny/{id}")
-    public ResponseEntity<Granny> visitGranny(@PathVariable int id) {
-        Granny granny = grannyService.visitGranny(id);
-        return ResponseEntity.ok().body(granny);
+    private void registerGrannyForUser(User user, String nameOfGranny){
+        Granny granny = new Granny(user, nameOfGranny);
+        grannyService.registerGranny(granny);
+        user.setGranny(granny);
     }
 
-//    TODO: should change these to PUT/PATCH requests
-//    TODO: review -> changed from RequestBody to PathVariable - frontend couldn't send a response body with get request,
-//    TODO: the backend should retrieve the id from session
-
-    @GetMapping("/feed-pie/{id}")
-    public ResponseEntity<Integer> feedPie(@PathVariable int id) {
-        Granny granny = grannyService.feedPie(id);
-        return ResponseEntity.ok().body(granny.getHealth().getStat());
+    @GetMapping("/visit-granny")
+    public Granny visitGranny() {
+        User user = userService.getUserById(sessionService.get("userId"));
+        grannyService.visitGranny(user.getGranny());
+        return user.getGranny();
     }
 
-    @GetMapping("/play-mahjong/{id}")
-    public ResponseEntity<Integer> playMahjong(@PathVariable int id) {
-        Granny granny = grannyService.playMahjong(id);
-        System.out.println(ResponseEntity.ok().body(granny.getMood().getStat()));
-        return ResponseEntity.ok().body(granny.getMood().getStat());
+    @GetMapping ("/feed-granny")
+    public ResponseEntity<String> feedGranny() {
+        User user = userService.getUserById(sessionService.get("userId"));
+        grannyService.feedGranny(user.getGranny());
+        return ResponseEntity.ok().body("granny got fatter");
     }
 
-    @GetMapping("/clean-house/{id}")
-    public ResponseEntity<Integer> cleanHouse(@PathVariable int id) {
-        Granny granny = grannyService.cleanHouse(id);
-        return ResponseEntity.ok().body(granny.getEnvironment().getStat());
+    @GetMapping ("/clean-house")
+    public ResponseEntity<String> cleanGrannyHouse() {
+        User user = userService.getUserById(sessionService.get("userId"));
+        grannyService.cleanHouse(user.getGranny());
+        return ResponseEntity.ok().body("House got cleaner");
+    }
+
+    @GetMapping ("/play-mahjong")
+    public ResponseEntity<String> playMahjong() {
+        User user = userService.getUserById(sessionService.get("userId"));
+        grannyService.playMahjongWithGranny(user.getGranny());
+        return ResponseEntity.ok().body("granny got happier");
     }
 
 
     @GetMapping("/spend-one-day")
-    public void spendOneDay(@RequestBody GrannyGetRequest request) {
-        grannyService.jumpOneDay(request.getUserId());
+    public void spendOneDay() {
+        User user = userService.getUserById(sessionService.get("userId"));
+        grannyService.jumpOneDay(user.getGranny());
     }
 
     @GetMapping("/spend-one-week")
-    public void spendOneWeek(@RequestBody GrannyGetRequest request) {
-        grannyService.jumpOneWeek(request.getUserId());
+    public void spendOneWeek() {
+        User user = userService.getUserById(sessionService.get("userId"));
+        grannyService.jumpOneWeek(user.getGranny());
     }
 
 }

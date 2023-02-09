@@ -1,13 +1,21 @@
 package com.codecool.grannymanager.model.grannyproperties;
 
+import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Getter
+
 public abstract class Stat {
+
+    private Long id;
 
     private int stat;
 
     protected String[] values;
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Stat() {
         this.stat = 0;

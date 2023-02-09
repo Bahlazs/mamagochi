@@ -1,87 +1,60 @@
 package com.codecool.grannymanager.model;
 
-import com.codecool.grannymanager.model.grannyproperties.Environment;
-import com.codecool.grannymanager.model.grannyproperties.Mood;
-import com.codecool.grannymanager.model.grannyproperties.Health;
+import com.codecool.grannymanager.model.enumgrannyproperties.Environment;
+import com.codecool.grannymanager.model.enumgrannyproperties.Health;
+import com.codecool.grannymanager.model.enumgrannyproperties.Mood;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+@Entity
+@NoArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode
 public class Granny {
 
-    public static final int START_AGE = 60;
-    private final int userId;
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "GRANNY_ID", nullable = false)
+    private Long id;
+    @OneToOne(mappedBy = "granny")
+    @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
+    @JsonIgnore
+    private User user;
     private String name;
-    private int age;
     private LocalDateTime lastVisit;
-    private final Environment environmentStat;
-    private final Health healthStat;
-    private final Mood moodStat;
 
-    private boolean retired = false;
+    @Enumerated(EnumType.STRING)
+    private Environment environmentStat;
+    @Enumerated(EnumType.STRING)
+    private Health healthStat;
+    @Enumerated(EnumType.STRING)
+    private Mood moodStat;
+    private boolean retired;
 
-    public Granny(int userId, String name) {
-        this(userId, name, new Environment(), new Health(), new Mood());
-    }
-
-    public Granny(int userId, String name, Environment environmentStat, Health healthStat, Mood moodStat) {
-        this.userId = userId;
+    public Granny(User user, String name) {
+        this.user = user;
         this.name = name;
-        this.age = START_AGE;
+        this.environmentStat = Environment.TIDY;
+        this.healthStat = Health.HEALTHY;
+        this.moodStat = Mood.HAPPY;
+        this.retired = false;
         this.lastVisit = LocalDateTime.now();
-        this.environmentStat = environmentStat;
-        this.healthStat = healthStat;
-        this.moodStat = moodStat;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public boolean isRetired() {
-        return retired;
-    }
-
-    public void setRetired(boolean retired) {
-        this.retired = retired;
-    }
-
-
-    public void setLastVisit(LocalDateTime lastVisit) {
-        this.lastVisit = lastVisit;
-    }
-
-    public LocalDateTime getLastVisit() {
-        return lastVisit;
-    }
-
-    public Health getHealth() {
-        return healthStat;
-    }
-
-    public void setHealth(int health) throws IllegalArgumentException {
-        this.healthStat.setStat(health);
-    }
-
-    public Mood getMood() {
-        return moodStat;
-    }
-
-    public void setMood(int mood) throws IllegalArgumentException{
-        this.moodStat.setStat(mood);
-    }
-
-    public Environment getEnvironment() {
-        return environmentStat;
-    }
-
-    public void setEnvironment(int environment) throws IllegalArgumentException {
-        this.environmentStat.setStat(environment);
+    public String toString(){
+//        return String.format("Name: %s , id: %d, userId: %d", name, id, user.getId());
+        return String.format("env: %s health: %s mood: %s retired: %s",environmentStat,healthStat,moodStat, retired);
     }
 }
