@@ -2,7 +2,7 @@ import * as React from 'react';
 import UserComponent from "./UserComponent.jsx";
 import {Link} from "react-router-dom";
 
-function NavBar({userName, logoutBob, loginBob}) {
+function NavBar({userName, logout, login}) {
 
     function handleClick(selector){
         document.querySelector(selector).scrollIntoView({behavior: "smooth"})
@@ -21,7 +21,7 @@ function NavBar({userName, logoutBob, loginBob}) {
                     handleClick("#features")
                 }} className="nav-bar-button" id={"features-button"}>Features</button>
             </div>
-            <div id={"user-block"}><UserComponent userName={userName} loginBob={loginBob} logoutBob={logoutBob}/></div>
+            <div id={"user-block"}><UserComponent userName={userName} login={login} logout={logout}/></div>
         </div>
     );
 }

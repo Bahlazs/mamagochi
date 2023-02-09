@@ -30,8 +30,9 @@ function App() {
             body: JSON.stringify({
                 name: formData.username,
                 email: formData.email,
-                password: formData.password})
-        })
+                password: formData.password
+            })
+        });
         if (res.status === 200) {
             alert('User registered');
         } else {
@@ -45,7 +46,8 @@ function App() {
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({
                 email: formData.email,
-                password: formData.password})
+                password: formData.password
+            })
         })
         if (res.status === 200) {
             setUserName(formData.username);
@@ -55,7 +57,7 @@ function App() {
     }
 
     const createGranny = async () => {
-         const res = await fetch(`/granny/create-granny`, {
+        const res = await fetch(`/granny/create-granny`, {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({name: formData.grannyName})
@@ -72,35 +74,31 @@ function App() {
             } else {
                 alert('Your granny is missing');
                 const timeout = setTimeout(() => {
-                    window.location.replace('http://localhost:5173');
+                    window.location.replace('http://localhost:5174');
                 }, 3000);
                 return () => clearTimeout(timeout);
             }
         });
     }
 
-    function logoutBob() {
-        setUserName(undefined)
+    async function logout() {
+        const res = await fetch(`/user/logout`);
+        setUserName(undefined);
     }
 
-    function loginBob() {
-        setUserName("Bob")
-
-    }
-
-  return (
-    <div className="App">
-      <Router>
-      <NavBar userName = {userName} logoutBob={logoutBob} loginBob={loginBob} />
-        <ModalForm onFormSubmit={handleFormSubmit} />
-        <Routes>
-            <Route path="/" element={<LandingPage userName={userName}/>} />
-            <Route path="/visit-granny" element={<GrannyPage visitGranny={visitGranny}/>} />
-        </Routes>
-      </Router>
-      <Footer/>
-    </div>
-  )
+    return (
+        <div className="App">
+            <Router>
+                <NavBar userName={userName} logout={logout} login={login}/>
+                <ModalForm onFormSubmit={handleFormSubmit}/>
+                <Routes>
+                    <Route path="/" element={<LandingPage userName={userName}/>}/>
+                    <Route path="/visit-granny" element={<GrannyPage visitGranny={visitGranny}/>}/>
+                </Routes>
+            </Router>
+            <Footer/>
+        </div>
+    )
 
 }
 
