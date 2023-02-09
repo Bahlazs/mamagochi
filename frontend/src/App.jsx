@@ -32,7 +32,6 @@ function App() {
             })
         });
         if (res.status === 200) {
-            console.error('regUser ok')
             alert('User registered');
             await login();
             await createGranny();
