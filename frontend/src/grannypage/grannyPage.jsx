@@ -112,7 +112,7 @@ function GrannyPage({visitGranny}) {
           <ThemeProvider theme={colorTheme}>
             <div className="stat-grid">
               <span id="pg-bar-text">{health}</span>
-              <LinearProgress variant="determinate" value={colorsForBars[health]} color={"primary"}
+              <LinearProgress id="pg1" variant="determinate" value={colorsForBars[health]} color={"primary"}
                               sx={{width: 8 / 10, height: 30, borderRadius: 1}}/>
             </div>
           </ThemeProvider>
