@@ -11,9 +11,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 @Entity
 @NoArgsConstructor
@@ -46,9 +43,9 @@ public class Granny {
     public Granny(User user, String name) {
         this.user = user;
         this.name = name;
-        this.environmentStat = Environment.TIDY;
-        this.healthStat = Health.HEALTHY;
-        this.moodStat = Mood.HAPPY;
+        this.environmentStat = Environment.IN_RUINS;
+        this.healthStat = Health.SICK;
+        this.moodStat = Mood.GRUMPY;
         this.retired = false;
         this.lastVisit = LocalDateTime.now();
     }

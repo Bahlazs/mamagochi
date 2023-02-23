@@ -1,8 +1,6 @@
 package com.codecool.grannymanager;
 
 
-import com.codecool.grannymanager.model.Granny;
-import com.codecool.grannymanager.model.enumgrannyproperties.Mood;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
