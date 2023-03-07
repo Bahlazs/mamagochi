@@ -1,8 +1,8 @@
 package com.codecool.grannymanager.model;
 
 import com.codecool.grannymanager.model.enumgrannyproperties.Environment;
-import com.codecool.grannymanager.model.enumgrannyproperties.Health;
 import com.codecool.grannymanager.model.enumgrannyproperties.Mood;
+import com.codecool.grannymanager.model.enumgrannyproperties.Health;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
