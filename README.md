@@ -8,7 +8,7 @@
 - [Setup guide](#setup-guide)
     - [Backend](#backend)
     - [Frontend](#frontend)
-    - [Database](#database-connection-info)
+   
 - [Future Plans](#future-plans)
 
 ## About
@@ -85,14 +85,8 @@ You can check out the site on the link bellow:
 
 http://localhost:5173/
 
-If you run into any problems contact me on nick.balazs18@gmial.com
+If you run into any problems contact me on nick.balazs18@gmail.com
 
-
-### Database connection info
-host: db.kydyvpgalddbpmmxxclr.supabase.co <br>
-user: postgres <br>
-database: postgres <br>
-pw: Test_Pw-0218
 
 ## Future Plans
 - Implement security features
