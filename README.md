@@ -35,7 +35,7 @@ of choice or if you dont have one open it in terminal. I recommend to open the *
 
 ### Backend
 
-#### dependencies
+#### Dependencies
 - OpenJDK 17
 - Maven
 
@@ -59,7 +59,7 @@ After starting the sever it should automatically connect to the data base.
 
 ### Frontend
 
-#### dependencies
+#### Dependencies
 - nvm
 - npm
 
@@ -85,7 +85,6 @@ You can check out the site on the link bellow:
 
 http://localhost:5173/
 
-If you run into any problems contact me on nick.balazs18@gmail.com
 
 
 ## Future Plans
@@ -94,6 +93,6 @@ If you run into any problems contact me on nick.balazs18@gmail.com
 - Multiplayer mini game
 
 
-
+If you run into any problems contact me on nick.balazs18@gmail.com
 
 
