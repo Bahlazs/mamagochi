@@ -12,6 +12,7 @@ import com.codecool.grannymanager.repository.UserRepository;
 import com.codecool.grannymanager.service.GrannyService;
 import com.codecool.grannymanager.service.SessionService;
 import com.codecool.grannymanager.service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/granny")
 public class GrannyController {
     private final GrannyService grannyService;
@@ -30,16 +32,9 @@ public class GrannyController {
     private final UserService userService;
     private final UserRepository userRepository;
 
-    @Autowired
-    public GrannyController(GrannyService grannyService, SessionService sessionService, UserService userService,
-                            UserRepository userRepository) {
-        this.grannyService = grannyService;
-        this.sessionService = sessionService;
-        this.userService = userService;
-        this.userRepository = userRepository;
-    }
 
-    @PostMapping("/create-granny")
+
+    @PostMapping
     public ResponseEntity<Void> createGranny(@RequestBody GrannyCreateRequest request) {
         ResponseEntity<Void> response;
 
@@ -66,7 +61,7 @@ public class GrannyController {
         user.setGranny(granny);
     }
 
-    @GetMapping("/visit-granny")
+    @GetMapping
     public ResponseEntity<Granny> visitGranny() {
         ResponseEntity<Granny> response;
         User user = userService.getUserById(sessionService.get("userId"));

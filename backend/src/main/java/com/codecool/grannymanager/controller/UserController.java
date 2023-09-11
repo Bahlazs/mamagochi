@@ -25,24 +25,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/register")
-    @ResponseBody
-    public ResponseEntity<Void> register(@RequestBody User user) {
-        userService.registerUser(user);
-        return ResponseEntity.ok().build();
-    }
 
-    @PostMapping("/login")
-    @ResponseBody
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest){
-        User user = userService.login(loginRequest);
-        if(user != null){
-            sessionService.put("userId", user.getId());
-            if(user.getGranny() != null){sessionService.put("grannyId",user.getGranny().getId());}
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.status(400).build();
-    }
 
     @GetMapping("/logout")
     public void logout(){

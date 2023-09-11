@@ -5,7 +5,10 @@ import com.codecool.grannymanager.model.requestmodel.LoginRequest;
 import com.codecool.grannymanager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -36,13 +39,7 @@ public class UserService {
         userRepository.delete(user);
     }
 
-    public User login(LoginRequest request){
-        User user = userRepository.findUserByEmail(request.getEmail());
-        if(user.getPassword().equals(request.getPassword())){
-            return user;
-        }
-        return null;
-    }
+
 
     public void updateUser(User updatedUser){
         User userToUpdate = userRepository.findUserById(updatedUser.getId());
@@ -53,8 +50,8 @@ public class UserService {
         if(updatedUser.getPassword() != null){
             userToUpdate.setPassword(updatedUser.getPassword());
         }
-        if(updatedUser.getName() != null){
-            userToUpdate.setName(updatedUser.getName());
+        if(updatedUser.getUsername() != null){
+            userToUpdate.setUserName(updatedUser.getUsername());
         }
         if(updatedUser.getGranny() != null){
             userToUpdate.setGranny(updatedUser.getGranny());
