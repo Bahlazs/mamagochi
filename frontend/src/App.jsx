@@ -7,7 +7,6 @@ import ResponsiveAppBar from "./components/AppBar.jsx";
 import {Footer} from "./components/Footer.jsx";
 import {ModalForm} from "./components/ModalForm";
 
-
 function App() {
 
     const [userName, setUserName] = useState(undefined);
@@ -22,7 +21,7 @@ function App() {
     }, [formData]);
 
     const registerUser = async () => {
-        const res = await fetch(`/user/register`, {
+        const res = await fetch(`/auth/register`, {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({
@@ -33,19 +32,19 @@ function App() {
         });
         if (res.status === 200) {
             alert('User registered');
-            await login();
-            await createGranny();
+            //await login();
+            //await createGranny();
         } else {
             alert('Something went wrong');
         }
     }
 
     const login = async () => {
-        const res = await fetch(`/user/login`, {
+        const res = await fetch(`/auth/login`, {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({
-                email: formData.email,
+                userName: formData.name,
                 password: formData.password
             })
         })
@@ -57,7 +56,7 @@ function App() {
     }
 
     const createGranny = async () => {
-        const res = await fetch(`/granny/create-granny`, {
+        const res = await fetch(`/granny`, {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({name: formData.grannyName})
@@ -71,7 +70,7 @@ function App() {
     }
 
     async function visitGranny() {
-        return await fetch(`/granny/visit-granny`).then((res) => {
+        return await fetch(`/granny`).then((res) => {
             if (res.status === 200) {
                 return res.json()
             } else {
@@ -92,7 +91,6 @@ function App() {
   return (
     <div className="App">
       <Router>
-      {/*<NavBar userName = {userName} logoutBob={logoutBob} loginBob={loginBob} />*/}
         <ResponsiveAppBar userName={userName} setOpen={setOpen} logout={logout}/>
         <ModalForm onFormSubmit={handleFormSubmit} open={open} setOpen={setOpen}/>
         <Routes>

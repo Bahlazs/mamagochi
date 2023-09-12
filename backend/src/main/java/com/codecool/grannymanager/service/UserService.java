@@ -1,14 +1,13 @@
 package com.codecool.grannymanager.service;
 
 import com.codecool.grannymanager.model.User;
-import com.codecool.grannymanager.model.requestmodel.LoginRequest;
+
 import com.codecool.grannymanager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+
 
 @Service
 public class UserService {
