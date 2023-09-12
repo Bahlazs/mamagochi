@@ -10,11 +10,14 @@ import com.codecool.grannymanager.security.dtos.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,6 +27,7 @@ public class AuthenticationService {
         private final PasswordEncoder passwordEncoder;
         private final JwtService jwtService;
         private final AuthenticationManager authenticationManager;
+        private final UserDetailsService userDetailsService;
 
         public Optional<AuthResponse> register(RegisterRequest request) {
             Optional<User> optUser = userRepository.findUserByUserName(request.getUsername());
@@ -52,13 +56,25 @@ public class AuthenticationService {
                     )
             );
 
-            UserDetails user = userRepository.findUserByUserName(request.getUsername())
-                    .orElseThrow(()-> new UsernameNotFoundException("username does not exist"));
+            User user = userRepository.findUserByUserName(request.getUsername()).orElseThrow(
+                    ()->(new UsernameNotFoundException("user not found"))
+            );
 
             var jwtToken = jwtService.generateToken(user);
 
             return AuthResponse.builder()
                     .token(jwtToken)
                     .build();
+        }
+
+        public org.springframework.security.core.userdetails.User getSecUser (String userName,
+                                                                              UserRepository userRepository) {
+            User dataUser = userRepository.findUserByUserName(userName).orElseThrow(
+                    () -> (new UsernameNotFoundException("use not found"))
+            );
+            org.springframework.security.core.userdetails.User user =
+                    new org.springframework.security.core.userdetails.User(dataUser.getUserName(), dataUser.getPassword(),
+                            List.of(new SimpleGrantedAuthority(dataUser.getRole().name())));
+            return user;
         }
 }

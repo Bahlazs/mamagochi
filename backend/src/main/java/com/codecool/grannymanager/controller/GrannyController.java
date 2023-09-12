@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static java.lang.Long.parseLong;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/granny")
@@ -39,11 +41,10 @@ public class GrannyController {
         ResponseEntity<Void> response;
 
         if(request.getName() != null){
-            User user = userService.getUserById(sessionService.get("userId"));
+            User user = userService.getUserById(parseLong("1"));
             if(user != null){
                 registerGrannyForUser(user, request.getName());
                 userService.updateUser(user);
-                sessionService.put("grannyId",user.getGranny().getId());
                 response = ResponseEntity.ok().build();
             } else {
                 response = ResponseEntity.status(400).build();

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 
 
 @Service
@@ -33,6 +34,10 @@ public class UserService {
         return userRepository.findUserById(id);
     }
 
+    public Optional<User>getUserByName(String userName) {
+        return userRepository.findUserByUserName(userName);
+    }
+
     public void deleteUser(long id) {
         User user = getUserById(id);
         userRepository.delete(user);
@@ -49,8 +54,8 @@ public class UserService {
         if(updatedUser.getPassword() != null){
             userToUpdate.setPassword(updatedUser.getPassword());
         }
-        if(updatedUser.getUsername() != null){
-            userToUpdate.setUserName(updatedUser.getUsername());
+        if(updatedUser.getUserName() != null){
+            userToUpdate.setUserName(updatedUser.getUserName());
         }
         if(updatedUser.getGranny() != null){
             userToUpdate.setGranny(updatedUser.getGranny());
