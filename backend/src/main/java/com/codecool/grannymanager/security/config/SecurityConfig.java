@@ -23,7 +23,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/").permitAll()
                 .requestMatchers("/auth**").permitAll()
-                .requestMatchers("/granny").hasAuthority(Role.USER.name())
+                .requestMatchers("/granny**").hasAuthority(Role.USER.name())
                 .anyRequest()
                 .authenticated()
                 .and()
