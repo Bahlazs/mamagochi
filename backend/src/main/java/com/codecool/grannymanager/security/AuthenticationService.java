@@ -67,14 +67,5 @@ public class AuthenticationService {
                     .build();
         }
 
-        public org.springframework.security.core.userdetails.User getSecUser (String userName,
-                                                                              UserRepository userRepository) {
-            User dataUser = userRepository.findUserByUserName(userName).orElseThrow(
-                    () -> (new UsernameNotFoundException("use not found"))
-            );
-            org.springframework.security.core.userdetails.User user =
-                    new org.springframework.security.core.userdetails.User(dataUser.getUserName(), dataUser.getPassword(),
-                            List.of(new SimpleGrantedAuthority(dataUser.getRole().name())));
-            return user;
-        }
+
 }

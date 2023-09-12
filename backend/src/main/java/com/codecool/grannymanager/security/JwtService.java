@@ -1,5 +1,6 @@
 package com.codecool.grannymanager.security;
 
+import com.codecool.grannymanager.constans.AppConstants;
 import com.codecool.grannymanager.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -78,6 +79,11 @@ public class JwtService {
                 .build().
                 parseClaimsJws(token).
                 getBody();
+    }
+
+    public String getUserNameFromHeader(String header) {
+        String token = header.substring(AppConstants.TOKEN_BEGIN_INDEX);
+        return extractUserName(token);
     }
 
     private Key getSigningKey() {

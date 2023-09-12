@@ -1,7 +1,6 @@
 package com.codecool.grannymanager.controller;
 
 
-import com.codecool.grannymanager.model.User;
 import com.codecool.grannymanager.security.AuthenticationService;
 import com.codecool.grannymanager.security.dtos.AuthRequest;
 import com.codecool.grannymanager.security.dtos.AuthResponse;
