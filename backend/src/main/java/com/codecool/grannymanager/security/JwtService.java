@@ -8,35 +8,26 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 
 @Service
 public class JwtService {
 
 
-    public String generateToken(User user) {
-        return generateToken(user.getUserName(), new SimpleGrantedAuthority(user.getRole().name()));
-    }
-
-
     public String generateToken(
             @NotNull String userName,
             SimpleGrantedAuthority authority
             ) {
-        HashMap<String, SimpleGrantedAuthority> authorities = new HashMap<>();
-        authorities.put("authority", authority);
         return Jwts
                 .builder()
-                .setClaims(authorities)
+                .claim("authorities", authority)
                 .setSubject(userName)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 24)))  // The token will expire in 1 day

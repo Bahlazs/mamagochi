@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import java.util.List;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -32,4 +34,15 @@ public class SecurityConfig {
 
         return httpSec.build();
     }
+
+
+
+//    @Bean
+//    public AuthenticationManager authenticationManager(HttpSecurity httpSecurity) throws Exception {
+//        return httpSecurity.getSharedObject(AuthenticationManagerBuilder.class)
+//                .userDetailsService(userDetailsService())
+//                .passwordEncoder(passwordEncoder()).and().build();
+//    }
+
+
 }

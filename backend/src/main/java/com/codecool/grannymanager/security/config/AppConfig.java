@@ -19,17 +19,18 @@ import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor
-public class ApplicationConfig {
+public class AppConfig {
 
     private final UserRepository userRepository;
-    @Bean
+
+
     public UserDetailsService userDetailsService(){
-         return username -> {
-             User user = this.userRepository.findUserByUserName(username)
-                     .orElseThrow(() -> new UsernameNotFoundException("user not found, user name was invalid or does not exist"));
-             return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(),
-                     List.of(new SimpleGrantedAuthority(user.getRole().name())));
-         };
+        return username -> {
+            User user = this.userRepository.findUserByUserName(username)
+                    .orElseThrow(() -> new UsernameNotFoundException("user not found, user name was invalid or does not exist"));
+            return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(),
+                    List.of(new SimpleGrantedAuthority(user.getRole().name())));
+        };
     }
 
     @Bean
@@ -41,12 +42,12 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-        return config.getAuthenticationManager();
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
     }
 }

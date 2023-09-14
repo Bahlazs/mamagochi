@@ -2,7 +2,7 @@ package com.codecool.grannymanager.controller;
 
 
 import com.codecool.grannymanager.security.AuthenticationService;
-import com.codecool.grannymanager.security.dtos.AuthRequest;
+import com.codecool.grannymanager.security.dtos.UserPaswordDTO;
 import com.codecool.grannymanager.security.dtos.AuthResponse;
 import com.codecool.grannymanager.security.dtos.RegisterRequest;
 import lombok.AllArgsConstructor;
@@ -35,7 +35,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
+    public ResponseEntity<AuthResponse> login(@RequestBody UserPaswordDTO request) {
         return ResponseEntity.ok(authService.authenticate(request));
     }
 

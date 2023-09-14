@@ -32,8 +32,8 @@ function App() {
         });
         if (res.status === 200) {
             alert('User registered');
-            await login();
-            await createGranny();
+            //await login();
+            //await createGranny();
         } else {
             alert('Something went wrong');
         }
