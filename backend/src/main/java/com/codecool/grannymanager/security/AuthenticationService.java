@@ -28,15 +28,15 @@ public class AuthenticationService {
         private final PasswordEncoder passwordEncoder;
         private final JwtService jwtService;
         private final AuthenticationManager authenticationManager;
-        private final UserDetailsService userDetailsService;
+
 
         public Optional<AuthResponse> register(RegisterRequest request) {
-            Optional<User> optUser = userRepository.findUserByUserName(request.getUsername());
+            Optional<User> optUser = userRepository.findUserByUserName(request.getUserName());
             if (optUser.isPresent()) {
                 return Optional.empty();
             }
             var user = User.builder()
-                    .userName(request.getUsername())
+                    .userName(request.getUserName())
                     .password(passwordEncoder.encode(request.getPassword()))
                     .email(request.getEmail())
                     .role(Role.USER)

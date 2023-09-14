@@ -23,7 +23,7 @@ public class AppConfig {
 
     private final UserRepository userRepository;
 
-
+    @Bean
     public UserDetailsService userDetailsService(){
         return username -> {
             User user = this.userRepository.findUserByUserName(username)

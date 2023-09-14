@@ -1,6 +1,5 @@
 package com.codecool.grannymanager.controller;
 
-import com.codecool.grannymanager.service.SessionService;
 import com.codecool.grannymanager.service.UserService;
 
 
@@ -12,12 +11,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class UserController {
 
-    private final SessionService sessionService;
+
     private final UserService userService;
 
     @Autowired
-    public UserController(SessionService sessionService, UserService userService) {
-        this.sessionService = sessionService;
+    public UserController(UserService userService) {
+
         this.userService = userService;
     }
 
@@ -25,7 +24,7 @@ public class UserController {
 
     @GetMapping("/logout")
     public void logout(){
-        sessionService.logout();
+       // todo
     }
 
 }
