@@ -25,15 +25,14 @@ function App() {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({
-                name: formData.username,
+                userName: formData.username,
                 email: formData.email,
                 password: formData.password
             })
         });
         if (res.status === 200) {
             alert('User registered');
-            //await login();
-            //await createGranny();
+            await createGranny();
         } else {
             alert('Something went wrong');
         }
@@ -59,7 +58,10 @@ function App() {
         const res = await fetch(`/granny`, {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
-            body: JSON.stringify({name: formData.grannyName})
+            body: JSON.stringify({
+                grannyName: formData.grannyName,
+                userName: formData.username
+            })
         })
         if (res.status !== 200) {
             alert('Something went wrong');

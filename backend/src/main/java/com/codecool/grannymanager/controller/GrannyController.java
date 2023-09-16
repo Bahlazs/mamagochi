@@ -31,15 +31,14 @@ public class GrannyController {
 
 
     @PostMapping
-    public ResponseEntity<Void> createGranny(@RequestBody GrannyCreateRequest request,
-                                             @RequestHeader(HttpHeaders.AUTHORIZATION) String header) {
+    public ResponseEntity<Void> createGranny(@RequestBody GrannyCreateRequest request) {
         ResponseEntity<Void> response;
-        String userName = jwtService.getUserNameFromHeader(header);
-        if (request.getName() != null) {
+        String userName = request.getUserName();
+        if (request.getGrannyName() != null) {
             Optional<User> optionalUser = userService.getUserByName(userName);
             User user = optionalUser.orElse(null);
             if (user != null) {
-                registerGrannyForUser(user, request.getName());
+                registerGrannyForUser(user, request.getGrannyName());
                 userService.updateUser(user);
                 response = ResponseEntity.ok().build();
             } else {

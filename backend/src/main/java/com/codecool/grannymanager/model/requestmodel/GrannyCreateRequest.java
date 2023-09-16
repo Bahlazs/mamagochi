@@ -6,7 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class GrannyCreateRequest {
-    private String name;
+    private String grannyName;
+    private String userName;
 
 
 }

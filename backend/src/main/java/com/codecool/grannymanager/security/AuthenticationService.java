@@ -6,19 +6,16 @@ import com.codecool.grannymanager.model.User;
 import com.codecool.grannymanager.repository.UserRepository;
 import com.codecool.grannymanager.security.dtos.AuthResponse;
 import com.codecool.grannymanager.security.dtos.RegisterRequest;
+import com.codecool.grannymanager.security.dtos.RegisterResponse;
 import com.codecool.grannymanager.security.dtos.UserPaswordDTO;
+import jakarta.servlet.http.Cookie;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Optional;
 
 @Service
@@ -30,7 +27,7 @@ public class AuthenticationService {
         private final AuthenticationManager authenticationManager;
 
 
-        public Optional<AuthResponse> register(RegisterRequest request) {
+        public Optional<RegisterResponse> register(RegisterRequest request) {
             Optional<User> optUser = userRepository.findUserByUserName(request.getUserName());
             if (optUser.isPresent()) {
                 return Optional.empty();
@@ -42,15 +39,14 @@ public class AuthenticationService {
                     .role(Role.USER)
                     .build();
             userRepository.save(user);
-            SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().name());
-            var jwtToken = jwtService.generateToken(user.getUserName(), authority);
-            AuthResponse response = AuthResponse.builder()
-                    .token(jwtToken)
+
+            RegisterResponse response = RegisterResponse.builder()
+                    .message(request.getUserName() + "has been registered")
                     .build();
             return Optional.of(response);
         }
 
-        public AuthResponse authenticate(UserPaswordDTO request) {
+        public Cookie authenticate(UserPaswordDTO request) {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             request.getUsername(),
@@ -65,10 +61,16 @@ public class AuthenticationService {
             SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().name());
 
             var jwtToken = jwtService.generateToken(userName, authority);
+            Cookie cookie = cookieCreator(jwtToken);
+            return cookie;
+        }
 
-            return AuthResponse.builder()
-                    .token(jwtToken)
-                    .build();
+        private Cookie cookieCreator(String jwtToken) {
+            Cookie cookie = new Cookie("jwt", jwtToken);
+            cookie.setPath("/");
+            cookie.setHttpOnly(true);
+            cookie.setMaxAge(1800);
+            return cookie;
         }
 
 
