@@ -49,12 +49,12 @@ public class AuthenticationService {
         public Cookie authenticate(UserPaswordDTO request) {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            request.getUsername(),
+                            request.getUserName(),
                             request.getPassword()
                     )
             );
 
-            User user = userRepository.findUserByUserName(request.getUsername()).orElseThrow(
+            User user = userRepository.findUserByUserName(request.getUserName()).orElseThrow(
                     ()->(new UsernameNotFoundException("user not found"))
             );
             String userName = user.getUserName();
@@ -68,7 +68,7 @@ public class AuthenticationService {
         private Cookie cookieCreator(String jwtToken) {
             Cookie cookie = new Cookie("jwt", jwtToken);
             cookie.setPath("/");
-            cookie.setHttpOnly(true);
+            cookie.setHttpOnly(false);
             cookie.setMaxAge(1800);
             return cookie;
         }

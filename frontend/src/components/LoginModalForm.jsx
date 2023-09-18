@@ -44,7 +44,7 @@ export const LoginModalForm = ({ open, setOpen, onFormSubmit }) => {
 
                             <div>
                                 <label htmlFor="password">Password:</label>
-                                <input type="password" id="password" name="password"
+                                <input type="text" id="password" name="password"
                                        value={formData.password}
                                        onChange={handleInputChange} />
                             </div>

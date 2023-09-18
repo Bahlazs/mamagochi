@@ -58,7 +58,7 @@ function App() {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({
-                userName: loginFormData.name,
+                userName: loginFormData.username,
                 password: loginFormData.password
             })
         })
@@ -90,7 +90,7 @@ function App() {
             method: 'GET',
             headers : {
                 'Content-type': 'application/json',
-                Authorization: `Bearer ${Token}`
+                'Authorization': `Bearer ${Token}`
             }
         }).then((res) => {
             if (res.status === 200) {
@@ -119,7 +119,7 @@ function App() {
                                    setOpen={setRegisterModalOpen}/>
                 <LoginModalForm onFormSubmit={handleLoginFormSubmit}
                                 open={loginModalOpen}
-                                setOpen={setLoginModalOpen()}/>
+                                setOpen={setLoginModalOpen}/>
                 <Routes>
                     <Route path="/" element={<LandingPage userName={userName}/>}/>
                     <Route path="/visit-granny" element={<GrannyPage visitGranny={visitGranny}/>}/>
