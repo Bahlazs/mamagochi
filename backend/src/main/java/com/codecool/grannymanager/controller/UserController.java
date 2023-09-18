@@ -23,7 +23,7 @@ public class UserController {
 
     @GetMapping("/logout")
     public void logout(){
-       // todo
+       // todo implement logout
     }
 
 }

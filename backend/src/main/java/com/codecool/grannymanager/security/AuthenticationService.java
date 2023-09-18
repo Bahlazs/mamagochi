@@ -60,7 +60,7 @@ public class AuthenticationService {
             String userName = user.getUserName();
             SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().name());
 
-            var jwtToken = jwtService.generateToken(userName, authority);
+            String jwtToken = jwtService.generateToken(userName, authority);
             Cookie cookie = cookieCreator(jwtToken);
             return cookie;
         }

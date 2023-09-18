@@ -37,7 +37,7 @@ const theme = createTheme({
   },
 });
 
-function ResponsiveAppBar({ userName, setOpen, logout }) {
+function ResponsiveAppBar({ userName, setRegisterOpen, setIsLoginOpen, logout}) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -192,12 +192,16 @@ function ResponsiveAppBar({ userName, setOpen, logout }) {
                     <>
                   <MenuItem onClick={ () => {
                     handleCloseUserMenu();
-                    setOpen(true);
+                    setRegisterOpen(true);
                     }
                   }>
                   <Typography textAlign="center" sx={{fontFamily: 'inherit'}}>{noUserPages.create}</Typography>
                   </MenuItem>
-                  <MenuItem onClick={handleCloseUserMenu}>
+                  <MenuItem onClick={() => {
+                      handleCloseUserMenu();
+                      setIsLoginOpen(true)
+                    }
+                  }>
                   <Typography textAlign="center" sx={{fontFamily: 'inherit'}}>{noUserPages.login}</Typography>
                   </MenuItem> </>
                 }

@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 
-export const ModalForm = ({ open, setOpen, onFormSubmit }) => {
+export const LoginModalForm = ({ open, setOpen, onFormSubmit }) => {
 
     const [formData, setFormData] = useState({
         username: '',
-        email: '',
-        password: '',
-        grannyName: '',
+        password: ''
     });
 
     const handleOpen = () => setOpen(true);
@@ -43,25 +41,14 @@ export const ModalForm = ({ open, setOpen, onFormSubmit }) => {
                                        value={formData.username}
                                        onChange={handleInputChange} />
                             </div>
-                            <div>
-                                <label htmlFor="email">Email:</label>
-                                <input type="text" id="email" name="email"
-                                       value={formData.email}
-                                       onChange={handleInputChange} />
-                            </div>
+
                             <div>
                                 <label htmlFor="password">Password:</label>
                                 <input type="password" id="password" name="password"
                                        value={formData.password}
                                        onChange={handleInputChange} />
                             </div>
-                            <div>
-                                <label htmlFor="grannyName">Granny Name:</label>
-                                <input type="text" id="grannyName" name="grannyName"
-                                       value={formData.grannyName}
-                                       onChange={handleInputChange} />
-                            </div>
-                            <button type="submit">Register</button>
+                            <button type="submit">Login</button>
                             <button type="button" onClick={handleClose}>Close</button>
                         </form>
                     </div>
