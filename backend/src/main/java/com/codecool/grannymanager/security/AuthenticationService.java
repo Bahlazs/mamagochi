@@ -4,7 +4,6 @@ package com.codecool.grannymanager.security;
 import com.codecool.grannymanager.model.Role;
 import com.codecool.grannymanager.model.User;
 import com.codecool.grannymanager.repository.UserRepository;
-import com.codecool.grannymanager.security.dtos.AuthResponse;
 import com.codecool.grannymanager.security.dtos.RegisterRequest;
 import com.codecool.grannymanager.security.dtos.RegisterResponse;
 import com.codecool.grannymanager.security.dtos.UserPaswordDTO;
