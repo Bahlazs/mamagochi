@@ -1,6 +1,6 @@
 import './grannyPage.css'
 import wholeGranny from '../assets/whole_granny_nobackground.png'
-import {capitalize, Container, Grid} from "@mui/material";
+import {Grid} from "@mui/material";
 import StatActionButton from "../components/StatActionButton.jsx";
 import {useEffect, useState} from "react";
 import LinearProgress from '@mui/material/LinearProgress';

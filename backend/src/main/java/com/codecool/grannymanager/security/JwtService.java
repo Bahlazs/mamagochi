@@ -1,17 +1,16 @@
 package com.codecool.grannymanager.security;
 
 import com.codecool.grannymanager.constans.AppConstants;
-import com.codecool.grannymanager.model.User;
+import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
 
 import java.security.Key;
 import java.util.*;
@@ -78,7 +77,8 @@ public class JwtService {
     }
 
     private Key getSigningKey() {
-        String secretKey = AppConstants.SECRET_KEY;
+        Dotenv dotenv = Dotenv.configure().load();
+        String secretKey = dotenv.get("SECRET");
         byte[] keyByte = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyByte);
     }
