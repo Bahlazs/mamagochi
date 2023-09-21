@@ -94,9 +94,11 @@ function App() {
             }
         }).then((res) => {
             if (res.status === 200) {
+                console.log(Token)
                 return res.json()
             } else {
                 alert('Your granny is missing');
+                console.log(Token)
                 const timeout = setTimeout(() => {
                     window.location.replace('http://localhost:5173');
                 }, 3000);
@@ -122,7 +124,7 @@ function App() {
                                 setOpen={setLoginModalOpen}/>
                 <Routes>
                     <Route path="/" element={<LandingPage userName={userName}/>}/>
-                    <Route path="/visit-granny" element={<GrannyPage visitGranny={visitGranny}/>}/>
+                    <Route path="/visit-granny" element={<GrannyPage visitGranny={visitGranny} token={Token}/>}/>
                 </Routes>
             </Router>
             <Footer/>

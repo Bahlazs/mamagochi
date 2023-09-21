@@ -1,10 +1,10 @@
 import './grannyPage.css'
 import wholeGranny from '../assets/whole_granny_nobackground.png'
-import {Grid} from "@mui/material";
 import StatActionButton from "../components/StatActionButton.jsx";
 import {useEffect, useState} from "react";
 import LinearProgress from '@mui/material/LinearProgress';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
+import {Grid} from "@mui/material";
 
 
 const greenStat = '#83ab7c'
@@ -26,7 +26,7 @@ const grannyTheme = createTheme({
     },
 });
 
-function GrannyPage({visitGranny}) {
+function GrannyPage({visitGranny, token}) {
 
 
     const [health, setHealth] = useState("HEALTHY");
@@ -129,15 +129,15 @@ function GrannyPage({visitGranny}) {
 
             <Grid className='btn-grid' item xs={4}>
                 <StatActionButton apiLink={`/granny/clean-house`}
-                                  jsonKey="environment" setState={setEnvironment} actionText="Clean House"/>
+                                  token={token} setState={setEnvironment} actionText="Clean House"/>
             </Grid>
             <Grid className='btn-grid' item xs={4}>
                 <StatActionButton apiLink={`/granny/feed-granny`}
-                                  jsonKey="health" setState={setHealth} actionText="Feed Pie"/>
+                                   token={token} setState={setHealth} actionText="Feed Pie"/>
             </Grid>
             <Grid className='btn-grid' item xs={4}>
                 <StatActionButton apiLink={`/granny/play-mahjong`}
-                                  jsonKey="mood" setState={setMood} actionText="Play Mahjong"/>
+                                  token={token} setState={setMood} actionText="Play Mahjong"/>
             </Grid>
         </Grid>
 
