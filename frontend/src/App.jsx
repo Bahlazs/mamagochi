@@ -31,7 +31,7 @@ function App() {
     useEffect(() => {
         if (loginFormData) {
             login();
-            setToken(Cookies.get("jwt"))
+            /*setToken(Cookies.get("jwt"))*/
         }
     }, [loginFormData]);
 
@@ -90,7 +90,7 @@ function App() {
             method: 'GET',
             headers : {
                 'Content-type': 'application/json',
-                Authorization: `Bearer ${Token}`
+                /*Authorization: `Bearer ${Token}`*/
             }
         }).then((res) => {
             if (res.status === 200) {

@@ -4,6 +4,7 @@ import com.codecool.grannymanager.constans.AppConstants;
 import com.codecool.grannymanager.security.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 @Component
 @RequiredArgsConstructor
@@ -34,15 +36,23 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
-        final String authenticationHeader = request.getHeader("Authorization");
-        final String jwt;
+        final Cookie[] cookies = request.getCookies();
+        String jwt = "";
         final String userName;
         final ArrayList<SimpleGrantedAuthority> authorities;
-        if (authenticationHeader == null || !authenticationHeader.startsWith("Bearer ")) {
+        if (cookies == null) {
             filterChain.doFilter(request, response);
             return;
         }
-        jwt = authenticationHeader.substring(AppConstants.TOKEN_BEGIN_INDEX);
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("jwt")){
+                jwt = cookie.getValue();
+            }
+        }
+        if (Objects.equals(jwt, "")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
         // extract username
         userName = this.jwtService.extractUserName(jwt);
         // extract authorities

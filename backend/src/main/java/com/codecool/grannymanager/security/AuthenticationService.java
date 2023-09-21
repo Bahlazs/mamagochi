@@ -67,7 +67,7 @@ public class AuthenticationService {
         private Cookie cookieCreator(String jwtToken) {
             Cookie cookie = new Cookie("jwt", jwtToken);
             cookie.setPath("/");
-            cookie.setHttpOnly(false);
+            cookie.setHttpOnly(true);
             cookie.setMaxAge(1800);
             return cookie;
         }

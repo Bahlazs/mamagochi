@@ -11,6 +11,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -23,7 +26,7 @@ public class Granny {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "GRANNY_ID", nullable = false)
+    @Column(name = "granny_id", nullable = false)
     private Long id;
     @OneToOne(mappedBy = "granny")
     @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
@@ -39,6 +42,12 @@ public class Granny {
     @Enumerated(EnumType.STRING)
     private Mood moodStat;
     private boolean retired;
+
+    @ManyToMany(cascade={CascadeType.ALL})
+    @JoinTable(name="GRANNY_FRIENDS",
+            joinColumns={@JoinColumn(name="FIRST_GRANNY_ID")},
+            inverseJoinColumns={@JoinColumn(name="SECOND_RANNY_ID")})
+    private Set<Granny> friends = new HashSet<Granny>();
 
     public Granny(User user, String name) {
         this.user = user;

@@ -77,8 +77,8 @@ public class JwtService {
     }
 
     private Key getSigningKey() {
-        Dotenv dotenv = Dotenv.configure().load();
-        String secretKey = dotenv.get("SECRET");
+//        Dotenv dotenv = Dotenv.configure().load();
+        String secretKey = AppConstants.SECRET_KEY;
         byte[] keyByte = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyByte);
     }
